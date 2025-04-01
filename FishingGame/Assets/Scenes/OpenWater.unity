@@ -445,6 +445,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4021404523926518075, guid: e45222cd4c0b47a469261e35152ea2d8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 518684468}
+    - targetCorrespondingSourceObject: {fileID: 4021404523926518075, guid: e45222cd4c0b47a469261e35152ea2d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 518684470}
   m_SourcePrefab: {fileID: 100100000, guid: e45222cd4c0b47a469261e35152ea2d8, type: 3}
 --- !u!1 &518684466 stripped
 GameObject:
@@ -577,6 +580,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7092352176542562863, guid: e45222cd4c0b47a469261e35152ea2d8, type: 3}
   m_PrefabInstance: {fileID: 518684465}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &518684470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518684466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fef6d68882ff4cab84ebc77802028b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hookRb: {fileID: 831603004}
+  rodTip: {fileID: 1195741905}
+  castForce: 10
+  reelSpeed: 5
+  waterLevel: 0
 --- !u!1 &831603002
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,7 +927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8894936859657987789, guid: f3340b91cde90dc4d867d5d20a3f0040, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
