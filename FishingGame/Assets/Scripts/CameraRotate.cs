@@ -1,3 +1,4 @@
+// CameraRotate.cs
 using UnityEngine;
 
 public class CameraRotate : MonoBehaviour

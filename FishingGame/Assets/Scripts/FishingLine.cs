@@ -1,9 +1,10 @@
+// FishingLine.cs
 using UnityEngine;
 
 public class FishingLine : MonoBehaviour
 {
-    public Transform rodTip;  
-    public Transform hook;     
+    public Transform rodTip;
+    public Transform hook;
     private LineRenderer line;
 
     void Start()
