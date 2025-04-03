@@ -5,41 +5,34 @@ public class CastAndReel : MonoBehaviour
 {
     public Rigidbody hookRb;
     public Transform rodTip;
-    public float castForce = 10f;
-    public float reelSpeed = 5f;
-    public float waterLevel = 0f; // Set this to match your water's Y position
+
+    [SerializeField]
+    private float castForce = 10f;
+
+    [SerializeField]
+    private float reelSpeed = 5f;
+
+    [SerializeField]
+    private float waterLevel = 0f;
 
     private bool isCasting = false;
     private bool isReeling = false;
 
     void Update()
     {
-        // CAST
         if (Input.GetKeyDown(KeyCode.Space) && !isCasting)
         {
             CastHook();
         }
 
-        // REEL
-        if (Input.GetKey(KeyCode.R))
-        {
-            isReeling = true;
-        }
-        else
-        {
-            isReeling = false;
-        }
-    }
+        isReeling = Input.GetKey(KeyCode.R);
 
-    void FixedUpdate()
-    {
         if (isReeling)
         {
             Vector3 direction = (rodTip.position - hookRb.position).normalized;
             hookRb.linearVelocity = direction * reelSpeed;
         }
 
-        // Clamp depth
         if (hookRb.position.y < waterLevel)
         {
             Vector3 pos = hookRb.position;
