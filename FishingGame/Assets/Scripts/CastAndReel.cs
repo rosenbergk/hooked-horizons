@@ -5,11 +5,21 @@ public class CastAndReel : MonoBehaviour
     public Rigidbody hookRb;
     public Transform rodPivot;
     public Transform rodTip;
-    public float minCastForce = 5f;
-    public float maxCastForce = 20f;
-    public float chargeSpeed = 10f;
-    public float reelSpeed = 5f;
-    public float waterLevel = 0f;
+
+    [SerializeField]
+    private float minCastForce = 5f;
+
+    [SerializeField]
+    private float maxCastForce = 20f;
+
+    [SerializeField]
+    private float chargeSpeed = 10f;
+
+    [SerializeField]
+    private float reelSpeed = 5f;
+
+    [SerializeField]
+    private float waterLevel = 0f;
 
     private float currentCastForce;
     private bool isCharging = false;
