@@ -16,10 +16,14 @@ public class CastAndReel : MonoBehaviour
     private bool isCasting = false;
     private bool isReeling = false;
     private Camera mainCam;
+    private FishCatcher fishCatcher;
+    private bool fishCaught = false;
+    private float nextRollTime = 0f;
 
     void Start()
     {
         mainCam = Camera.main;
+        fishCatcher = FindAnyObjectByType<FishCatcher>();
     }
 
     void Update()
@@ -69,15 +73,32 @@ public class CastAndReel : MonoBehaviour
                 hookRb.isKinematic = true;
                 hookRb.linearVelocity = Vector3.zero;
                 isCasting = false;
+                fishCaught = false;
+                nextRollTime = 0f;
             }
         }
 
-        // Buoyancy
         if (!hookRb.isKinematic && hookRb.position.y < waterLevel)
         {
             float depth = waterLevel - hookRb.position.y;
             Vector3 buoyancy = Vector3.up * depth * 2f;
             hookRb.AddForce(buoyancy, ForceMode.Acceleration);
+
+            if (!fishCaught && Time.time >= nextRollTime)
+            {
+                int catchResult = fishCatcher.RollForCatch();
+                nextRollTime = Time.time + 2f;
+
+                if (catchResult == 0)
+                {
+                    Debug.Log("No fish caught this time.");
+                }
+                else
+                {
+                    Debug.Log("Fish caught: Fish" + catchResult);
+                    fishCaught = true;
+                }
+            }
         }
     }
 
