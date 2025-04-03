@@ -250,7 +250,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -447,7 +447,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hookRb: {fileID: 4825045879594827920}
   rodTip: {fileID: 8637220959256496199}
-  castForce: 10
+  minCastForce: 5
+  maxCastForce: 20
+  chargeSpeed: 10
   reelSpeed: 5
   waterLevel: 0
 --- !u!1 &4266375751444338068
