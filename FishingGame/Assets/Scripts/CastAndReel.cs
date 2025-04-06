@@ -72,7 +72,6 @@ public class CastAndReel : MonoBehaviour
             Vector3 direction = (rodTip.position - hookRb.position).normalized;
             hookRb.linearVelocity = direction * reelSpeed;
 
-            // Snap back and freeze when very close
             if (Vector3.Distance(hookRb.position, rodTip.position) < 0.5f)
             {
                 hookRb.isKinematic = true;
@@ -111,10 +110,29 @@ public class CastAndReel : MonoBehaviour
     {
         isCasting = true;
         hookRb.isKinematic = false;
-        Vector3 castDirection = mainCam.transform.forward;
-        castDirection.y = Mathf.Clamp(castDirection.y, -0.1f, 0.3f);
-        castDirection.Normalize();
+
+        // Step 1: Base direction is forward from camera
+        Vector3 forward = mainCam.transform.forward;
+        forward.y = 0; // flatten it to horizontal
+        forward.Normalize();
+
+        // Step 2: Add upward arc
+        Vector3 up = Vector3.up;
+        Vector3 castDirection = (forward + up * 0.5f).normalized;
+
+        // Step 3: Apply force
         hookRb.linearVelocity = Vector3.zero;
         hookRb.AddForce(castDirection * currentCastForce, ForceMode.VelocityChange);
     }
+
+    public bool IsCasting()
+    {
+        return isCasting;
+    }
+
+    public bool IsReeling()
+    {
+        return isReeling;
+    }
+
 }
