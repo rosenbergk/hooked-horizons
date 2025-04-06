@@ -5,21 +5,13 @@ public class CastAndReel : MonoBehaviour
     public Rigidbody hookRb;
     public Transform rodPivot;
     public Transform rodTip;
+    public CastArcPreview arcPreview;
 
-    [SerializeField]
-    private float minCastForce = 5f;
-
-    [SerializeField]
-    private float maxCastForce = 20f;
-
-    [SerializeField]
-    private float chargeSpeed = 10f;
-
-    [SerializeField]
-    private float reelSpeed = 5f;
-
-    [SerializeField]
-    private float waterLevel = 0f;
+    [SerializeField] private float minCastForce = 5f;
+    [SerializeField] private float maxCastForce = 20f;
+    [SerializeField] private float chargeSpeed = 10f;
+    [SerializeField] private float reelSpeed = 5f;
+    [SerializeField] private float waterLevel = 0f;
 
     private float currentCastForce;
     private bool isCharging = false;
@@ -50,6 +42,15 @@ public class CastAndReel : MonoBehaviour
         {
             currentCastForce += chargeSpeed * Time.deltaTime;
             currentCastForce = Mathf.Clamp(currentCastForce, minCastForce, maxCastForce);
+
+            // Show cast arc while charging
+            Vector3 castDirection = mainCam.transform.forward;
+            castDirection.y = Mathf.Clamp(castDirection.y, -0.1f, 0.3f);
+            arcPreview.ShowArc(castDirection, currentCastForce);
+        }
+        else
+        {
+            arcPreview.HideArc();
         }
 
         // Release to cast
@@ -57,17 +58,11 @@ public class CastAndReel : MonoBehaviour
         {
             CastHook();
             isCharging = false;
+            arcPreview.HideArc();
         }
 
         // Reel
-        if (Input.GetKey(KeyCode.R))
-        {
-            isReeling = true;
-        }
-        else
-        {
-            isReeling = false;
-        }
+        isReeling = Input.GetKey(KeyCode.R);
     }
 
     void FixedUpdate()
