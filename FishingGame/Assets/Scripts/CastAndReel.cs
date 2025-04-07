@@ -7,11 +7,20 @@ public class CastAndReel : MonoBehaviour
     public Transform rodTip;
     public CastArcPreview arcPreview;
 
-    [SerializeField] private float minCastForce = 5f;
-    [SerializeField] private float maxCastForce = 20f;
-    [SerializeField] private float chargeSpeed = 10f;
-    [SerializeField] private float reelSpeed = 5f;
-    [SerializeField] private float waterLevel = 0f;
+    [SerializeField]
+    private float minCastForce = 5f;
+
+    [SerializeField]
+    private float maxCastForce = 20f;
+
+    [SerializeField]
+    private float chargeSpeed = 10f;
+
+    [SerializeField]
+    private float reelSpeed = 5f;
+
+    [SerializeField]
+    private float waterLevel = 0f;
 
     private float currentCastForce;
     private bool isCharging = false;
@@ -87,21 +96,22 @@ public class CastAndReel : MonoBehaviour
             float depth = waterLevel - hookRb.position.y;
             Vector3 buoyancy = Vector3.up * depth * 2f;
             hookRb.AddForce(buoyancy, ForceMode.Acceleration);
+        }
 
-            if (!fishCaught && Time.time >= nextRollTime)
+        if (isCasting && !fishCaught && Time.time >= nextRollTime)
+        {
+            int catchResult = fishCatcher.RollForCatch();
+
+            nextRollTime = Time.time + 2f;
+
+            if (catchResult == 0)
             {
-                int catchResult = fishCatcher.RollForCatch();
-                nextRollTime = Time.time + 2f;
-
-                if (catchResult == 0)
-                {
-                    Debug.Log("No fish caught this time.");
-                }
-                else
-                {
-                    Debug.Log("Fish caught: Fish" + catchResult);
-                    fishCaught = true;
-                }
+                Debug.Log("No fish caught this time.");
+            }
+            else
+            {
+                Debug.Log("Fish caught: Fish" + catchResult);
+                fishCaught = true;
             }
         }
     }
@@ -110,6 +120,8 @@ public class CastAndReel : MonoBehaviour
     {
         isCasting = true;
         hookRb.isKinematic = false;
+
+        nextRollTime = Time.time + 2f;
 
         // Step 1: Base direction is forward from camera
         Vector3 forward = mainCam.transform.forward;
@@ -134,5 +146,4 @@ public class CastAndReel : MonoBehaviour
     {
         return isReeling;
     }
-
 }
