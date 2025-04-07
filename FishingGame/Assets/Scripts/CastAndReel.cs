@@ -22,6 +22,9 @@ public class CastAndReel : MonoBehaviour
     [SerializeField]
     private float waterLevel = 0f;
 
+    [SerializeField]
+    private float buoyancyForce;
+
     // Array of fish prefabs where index 0 corresponds to fish type 1, index 1 to fish type 2, etc.
     public GameObject[] fishPrefabs;
 
@@ -118,7 +121,7 @@ public class CastAndReel : MonoBehaviour
         if (!hookRb.isKinematic && !isReeling && hookRb.position.y < waterLevel)
         {
             float depth = waterLevel - hookRb.position.y;
-            Vector3 buoyancy = Vector3.up * depth * 2f;
+            Vector3 buoyancy = Vector3.up * depth * buoyancyForce;
             hookRb.AddForce(buoyancy, ForceMode.Acceleration);
         }
 

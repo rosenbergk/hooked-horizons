@@ -433,6 +433,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rodTip: {fileID: 8637220959256496199}
   hook: {fileID: 4752435134606710815}
+  segmentCount: 25
+  maxSagAmount: 1.5
 --- !u!114 &9043973205233677377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,12 +448,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookRb: {fileID: 4825045879594827920}
+  rodPivot: {fileID: 0}
   rodTip: {fileID: 8637220959256496199}
+  arcPreview: {fileID: 0}
   minCastForce: 5
   maxCastForce: 20
   chargeSpeed: 10
   reelSpeed: 5
   waterLevel: 0
+  buoyancyForce: 0.4
+  fishPrefabs:
+  - {fileID: 5289886174785864627, guid: 1f9f45494338bf945b2ceed21f771768, type: 3}
+  - {fileID: 5289886174785864627, guid: 85d68746d87a2b74aa7090898611dd3e, type: 3}
+  - {fileID: 5289886174785864627, guid: d7972df7c03e6d847a9a5586e8d332c7, type: 3}
+  - {fileID: 5289886174785864627, guid: 86af42658e17f1e40bf2e6e33e618dff, type: 3}
+  - {fileID: 5289886174785864627, guid: c3a0b7ef662b4d44a986462980e4d2ab, type: 3}
 --- !u!1 &4266375751444338068
 GameObject:
   m_ObjectHideFlags: 0
