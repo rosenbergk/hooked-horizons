@@ -78,6 +78,8 @@ public class CastAndReel : MonoBehaviour
     {
         if (isReeling && !hookRb.isKinematic)
         {
+            hookRb.linearVelocity = Vector3.zero;
+
             Vector3 direction = (rodTip.position - hookRb.position).normalized;
             hookRb.linearVelocity = direction * reelSpeed;
 
@@ -91,7 +93,7 @@ public class CastAndReel : MonoBehaviour
             }
         }
 
-        if (!hookRb.isKinematic && hookRb.position.y < waterLevel)
+        if (!hookRb.isKinematic && !isReeling && hookRb.position.y < waterLevel)
         {
             float depth = waterLevel - hookRb.position.y;
             Vector3 buoyancy = Vector3.up * depth * 2f;

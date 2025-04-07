@@ -14,7 +14,7 @@ public class FishingLine : MonoBehaviour
     {
         line = GetComponent<LineRenderer>();
         line.positionCount = segmentCount;
-        castAndReel = FindObjectOfType<CastAndReel>();
+        castAndReel = FindAnyObjectByType<CastAndReel>();
     }
 
     void Update()
@@ -41,7 +41,6 @@ public class FishingLine : MonoBehaviour
             }
         }
 
-
         Vector3[] points = new Vector3[segmentCount];
 
         for (int i = 0; i < segmentCount; i++)
@@ -60,5 +59,4 @@ public class FishingLine : MonoBehaviour
 
         line.SetPositions(points);
     }
-
 }
