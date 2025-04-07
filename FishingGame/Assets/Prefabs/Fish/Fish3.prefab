@@ -117,6 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5811004375493125345}
+  - component: {fileID: 3354820931209828666}
   m_Layer: 0
   m_Name: Fish3
   m_TagString: Untagged
@@ -141,6 +142,19 @@ Transform:
   - {fileID: 6216989243436101115}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3354820931209828666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5289886174785864627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f04630d8fd35b40acc4a2952bbaa6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouth: {fileID: 1757611969051750523}
 --- !u!1 &5458175045227615479
 GameObject:
   m_ObjectHideFlags: 0
