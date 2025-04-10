@@ -25,6 +25,9 @@ public class CastAndReel : MonoBehaviour
     [SerializeField]
     private float buoyancyForce;
 
+    [SerializeField]
+    private float rollInterval = 5f;
+
     // Array of fish prefabs where index 0 corresponds to fish type 1, index 1 to fish type 2, etc.
     public GameObject[] fishPrefabs;
 
@@ -129,7 +132,7 @@ public class CastAndReel : MonoBehaviour
         if (isCasting && !fishCaught && Time.time >= nextRollTime)
         {
             int catchResult = fishCatcher.RollForCatch();
-            nextRollTime = Time.time + 2f;
+            nextRollTime = Time.time + rollInterval;
 
             if (catchResult == 0)
             {
@@ -176,7 +179,7 @@ public class CastAndReel : MonoBehaviour
     {
         isCasting = true;
         hookRb.isKinematic = false;
-        nextRollTime = Time.time + 2f;
+        nextRollTime = Time.time + rollInterval;
 
         // Base direction: forward from the camera, flattened to horizontal
         Vector3 forward = mainCam.transform.forward;

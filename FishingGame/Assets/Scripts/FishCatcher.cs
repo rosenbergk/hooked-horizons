@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class FishCatcher : MonoBehaviour
 {
-    private static float noCatchChance = 0.7f;
-    private static float fish1CatchChance = 0.15f;
-    private static float fish2CatchChance = 0.06f;
-    private static float fish3CatchChance = 0.04f;
-    private static float fish4CatchChance = 0.035f;
-    private static float fish5CatchChance = 0.015f;
+    private static float noCatchChance = 0.8f;
+    private static float fish1CatchChance = 0.08f;
+    private static float fish2CatchChance = 0.05f;
+    private static float fish3CatchChance = 0.035f;
+    private static float fish4CatchChance = 0.025f;
+    private static float fish5CatchChance = 0.01f;
 
     private Dictionary<int, float> catchChances = new Dictionary<int, float>()
     {
