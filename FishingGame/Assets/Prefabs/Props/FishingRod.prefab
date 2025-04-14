@@ -456,6 +456,7 @@ MonoBehaviour:
   waterLevel: 0
   buoyancyForce: 0.4
   rollInterval: 5
+  tugManager: {fileID: -4501378859602595140, guid: c574712f67a3cf349b3b8bf3de86ba26, type: 3}
   fishPrefabs:
   - {fileID: 5289886174785864627, guid: 1f9f45494338bf945b2ceed21f771768, type: 3}
   - {fileID: 5289886174785864627, guid: 85d68746d87a2b74aa7090898611dd3e, type: 3}
