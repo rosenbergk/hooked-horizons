@@ -142,7 +142,7 @@ public class CastAndReel : MonoBehaviour
             {
                 Debug.Log("Fish caught: Fish" + catchResult);
 
-                GameManager.Instance.RegisterFishCatch(catchResult);
+                FishWeightManager.Instance.RegisterFishCatch(catchResult);
                 fishCaught = true;
 
                 // Map catch result to prefab index (result 1 => index 0, etc.)
