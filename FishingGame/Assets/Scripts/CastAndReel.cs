@@ -31,6 +31,7 @@ public class CastAndReel : MonoBehaviour
 
     [SerializeField]
     private TugOfWarManager tugManager;
+
     private GameObject currentFish;
     private float currentCastForce;
     private bool isCharging = false;
@@ -50,11 +51,30 @@ public class CastAndReel : MonoBehaviour
 
     void Update()
     {
+        HandleChargeInput();
+        ProcessCharging();
+        HandleCastRelease();
+        UpdateReelingInput();
+    }
+
+    void FixedUpdate()
+    {
+        ProcessReeling();
+        ProcessBuoyancy();
+        ProcessFishCatching();
+    }
+
+    private void HandleChargeInput()
+    {
         if (Input.GetMouseButtonDown(0) && !isCasting)
         {
             isCharging = true;
             currentCastForce = minCastForce;
         }
+    }
+
+    private void ProcessCharging()
+    {
         if (Input.GetMouseButton(0) && isCharging)
         {
             currentCastForce += chargeSpeed * Time.deltaTime;
@@ -64,18 +84,27 @@ public class CastAndReel : MonoBehaviour
             arcPreview.ShowArc(castDirection, currentCastForce);
         }
         else
+        {
             arcPreview.HideArc();
+        }
+    }
+
+    private void HandleCastRelease()
+    {
         if (Input.GetMouseButtonUp(0) && isCharging)
         {
             CastHook();
             isCharging = false;
             arcPreview.HideArc();
         }
+    }
 
+    private void UpdateReelingInput()
+    {
         isReeling = Input.GetKey(KeyCode.R);
     }
 
-    void FixedUpdate()
+    private void ProcessReeling()
     {
         if (isReeling && !hookRb.isKinematic)
         {
@@ -109,11 +138,19 @@ public class CastAndReel : MonoBehaviour
                 Debug.Log("Reeling finished, slider deactivated.");
             }
         }
+    }
+
+    private void ProcessBuoyancy()
+    {
         if (!hookRb.isKinematic && !isReeling && hookRb.position.y < waterLevel)
         {
             float depth = waterLevel - hookRb.position.y;
             hookRb.AddForce(Vector3.up * depth * buoyancyForce, ForceMode.Acceleration);
         }
+    }
+
+    private void ProcessFishCatching()
+    {
         if (isCasting && !fishCaught && Time.time >= nextRollTime)
         {
             int catchResult = fishCatcher.RollForCatch();

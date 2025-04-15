@@ -187,7 +187,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1710919743}
+  - {fileID: 504504355101735984}
   m_Father: {fileID: 512006420}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -759,43 +759,6 @@ RenderTexture:
   m_Dimension: 2
   m_VolumeDepth: 1
   m_ShadowSamplingMode: 2
---- !u!84 &775688359
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 6
-  m_Width: 128
-  m_Height: 128
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 94
-  m_ColorFormat: 48
-  m_MipMap: 1
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_UseDynamicScaleExplicit: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!4 &791916680 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7092352176542562863, guid: 493bb4f09e158374e9da6f38fcb3ec6e, type: 3}
@@ -1141,43 +1104,6 @@ RenderTexture:
   m_Dimension: 2
   m_VolumeDepth: 1
   m_ShadowSamplingMode: 2
---- !u!84 &918528825
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 6
-  m_Width: 128
-  m_Height: 128
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 94
-  m_ColorFormat: 48
-  m_MipMap: 1
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_UseDynamicScaleExplicit: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1001 &991611378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1316,6 +1242,43 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 366401455}
   m_SourcePrefab: {fileID: 100100000, guid: 493bb4f09e158374e9da6f38fcb3ec6e, type: 3}
+--- !u!84 &1052275752
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 6
+  m_Width: 128
+  m_Height: 128
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 94
+  m_ColorFormat: 48
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_UseDynamicScaleExplicit: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1 &1086668530 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 704595408356881898, guid: 34d71198bd59f3a4db26f79e7ef0ff91, type: 3}
@@ -1439,6 +1402,43 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!84 &1685632599
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 6
+  m_Width: 128
+  m_Height: 128
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 94
+  m_ColorFormat: 48
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_UseDynamicScaleExplicit: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1001 &1710919742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1527,20 +1527,39 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1538963165460236470, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.4990066
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538963165460236470, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2461498587788650121, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
       propertyPath: m_Name
       value: TugOfWarSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 2461498587788650121, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608468020953979040, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.4990066
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608468020953979040, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608468020953979040, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.4990066
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
---- !u!224 &1710919743 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 504504355689557006, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
-  m_PrefabInstance: {fileID: 1710919742}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1729124248 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 704595407049319702, guid: 34d71198bd59f3a4db26f79e7ef0ff91, type: 3}
@@ -2467,6 +2486,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1729124253}
   m_SourcePrefab: {fileID: 100100000, guid: 34d71198bd59f3a4db26f79e7ef0ff91, type: 3}
+--- !u!224 &504504355101735984 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 504504355689557006, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
+  m_PrefabInstance: {fileID: 1710919742}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3839813710626768494
 PrefabInstance:
   m_ObjectHideFlags: 0
