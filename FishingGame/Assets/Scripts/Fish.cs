@@ -7,6 +7,13 @@ public class Fish : MonoBehaviour
     [SerializeField]
     private Transform mouth;
 
+    public string FishName { get; private set; }
+
+    public void SetFishName(string name)
+    {
+        FishName = name;
+    }
+
     public void Catch(Transform hook)
     {
         transform.SetParent(hook);

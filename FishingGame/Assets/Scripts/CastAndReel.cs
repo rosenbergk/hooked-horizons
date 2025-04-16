@@ -167,6 +167,7 @@ public class CastAndReel : MonoBehaviour
                 Debug.Log("RollForCatch: Fish caught: " + catchResult);
                 FishWeightManager.Instance.RegisterFishCatch(catchResult);
                 fishCaught = true;
+
                 int fishIndex = catchResult - 1;
                 if (
                     fishPrefabs != null
@@ -181,11 +182,16 @@ public class CastAndReel : MonoBehaviour
                         Quaternion.identity
                     );
 
-                    Fish fishScript = fishInstance.GetComponent<Fish>();
+                    string assignedName = FishNaming.GetFishName(catchResult);
 
-                    if (fishScript != null)
+                    Fish fish = fishInstance.GetComponent<Fish>();
+
+                    if (fish != null)
                     {
-                        fishScript.Catch(hookRb.transform);
+                        fish.SetFishName(assignedName);
+                        Debug.Log("Fish caught and named: " + assignedName);
+
+                        fish.Catch(hookRb.transform);
                     }
                     else
                     {
