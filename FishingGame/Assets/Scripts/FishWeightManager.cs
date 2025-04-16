@@ -25,14 +25,10 @@ public class FishWeightManager : MonoBehaviour
         int index = fishType - 1;
         if (fishWeightRanges != null && index < fishWeightRanges.Length)
         {
-            // Get the weight range for the fish type.
             Vector2 range = fishWeightRanges[index];
-            // Pick a random weight between the defined min and max.
             float weight = Random.Range(range.x, range.y);
             TotalFishPounds += weight;
-            Debug.Log(
-                $"Caught fish type {fishType} weighing {weight:F2} lbs. Total: {TotalFishPounds:F2} lbs."
-            );
+            FindAnyObjectByType<FishWeightDisplay>()?.UpdateFishWeightText();
         }
         else
         {
