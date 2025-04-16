@@ -32,6 +32,9 @@ public class CastAndReel : MonoBehaviour
     [SerializeField]
     private TugOfWarManager tugManager;
 
+    [SerializeField]
+    private float hookRestDistance;
+
     private GameObject currentFish;
     private float currentCastForce;
     private bool isCharging = false;
@@ -112,7 +115,7 @@ public class CastAndReel : MonoBehaviour
             Vector3 direction = (rodTip.position - hookRb.position).normalized;
             float effectiveReelSpeed = reelSpeed * tugManager.reelMultiplier;
             hookRb.linearVelocity = direction * effectiveReelSpeed;
-            if (Vector3.Distance(hookRb.position, rodTip.position) < 0.5f)
+            if (Vector3.Distance(hookRb.position, rodTip.position) < hookRestDistance)
             {
                 hookRb.isKinematic = true;
                 hookRb.linearVelocity = Vector3.zero;

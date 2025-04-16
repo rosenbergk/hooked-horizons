@@ -449,6 +449,12 @@ MonoBehaviour:
   rodPivot: {fileID: 0}
   rodTip: {fileID: 8637220959256496199}
   arcPreview: {fileID: 0}
+  fishPrefabs:
+  - {fileID: 5289886174785864627, guid: 1f9f45494338bf945b2ceed21f771768, type: 3}
+  - {fileID: 5289886174785864627, guid: 85d68746d87a2b74aa7090898611dd3e, type: 3}
+  - {fileID: 5289886174785864627, guid: d7972df7c03e6d847a9a5586e8d332c7, type: 3}
+  - {fileID: 5289886174785864627, guid: 86af42658e17f1e40bf2e6e33e618dff, type: 3}
+  - {fileID: 5289886174785864627, guid: c3a0b7ef662b4d44a986462980e4d2ab, type: 3}
   minCastForce: 5
   maxCastForce: 20
   chargeSpeed: 10
@@ -457,12 +463,7 @@ MonoBehaviour:
   buoyancyForce: 0.4
   rollInterval: 5
   tugManager: {fileID: -4501378859602595140, guid: c574712f67a3cf349b3b8bf3de86ba26, type: 3}
-  fishPrefabs:
-  - {fileID: 5289886174785864627, guid: 1f9f45494338bf945b2ceed21f771768, type: 3}
-  - {fileID: 5289886174785864627, guid: 85d68746d87a2b74aa7090898611dd3e, type: 3}
-  - {fileID: 5289886174785864627, guid: d7972df7c03e6d847a9a5586e8d332c7, type: 3}
-  - {fileID: 5289886174785864627, guid: 86af42658e17f1e40bf2e6e33e618dff, type: 3}
-  - {fileID: 5289886174785864627, guid: c3a0b7ef662b4d44a986462980e4d2ab, type: 3}
+  hookRestDistance: 1
 --- !u!1 &4266375751444338068
 GameObject:
   m_ObjectHideFlags: 0
