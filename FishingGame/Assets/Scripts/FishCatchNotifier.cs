@@ -1,4 +1,3 @@
-// FishCatchNotifier.cs
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -11,8 +10,18 @@ public class FishCatchNotifier : MonoBehaviour
     private TextMeshProUGUI notificationText;
 
     [SerializeField]
-    private float displayDuration = 2f;
+    private float popScale;
 
+    [SerializeField]
+    private float popDuration;
+
+    [SerializeField]
+    private float endScaleDuration;
+
+    [SerializeField]
+    private float displayDuration;
+
+    private Vector3 originalScale;
     private Coroutine displayRoutine;
 
     private void Awake()
@@ -26,7 +35,10 @@ public class FishCatchNotifier : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         if (notificationText != null)
+        {
             notificationText.gameObject.SetActive(false);
+            originalScale = notificationText.transform.localScale;
+        }
     }
 
     public void ShowCatchNotification(float weight, string fishName)
@@ -39,13 +51,50 @@ public class FishCatchNotifier : MonoBehaviour
 
         if (displayRoutine != null)
             StopCoroutine(displayRoutine);
-        displayRoutine = StartCoroutine(HideAfterDelay());
+        displayRoutine = StartCoroutine(PlayAnimation());
     }
 
-    private IEnumerator HideAfterDelay()
+    private IEnumerator PlayAnimation()
     {
+        float halfPop = popDuration / 2f;
+        float elapsed = 0f;
+        while (elapsed < halfPop)
+        {
+            float t = elapsed / halfPop;
+            notificationText.transform.localScale = Vector3.Lerp(
+                originalScale,
+                originalScale * popScale,
+                t
+            );
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        elapsed = 0f;
+        while (elapsed < halfPop)
+        {
+            float t = elapsed / halfPop;
+            notificationText.transform.localScale = Vector3.Lerp(
+                originalScale * popScale,
+                originalScale,
+                t
+            );
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        notificationText.transform.localScale = originalScale;
+
         yield return new WaitForSeconds(displayDuration);
-        if (notificationText != null)
-            notificationText.gameObject.SetActive(false);
+
+        elapsed = 0f;
+        while (elapsed < endScaleDuration)
+        {
+            float t = elapsed / endScaleDuration;
+            notificationText.transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        notificationText.gameObject.SetActive(false);
+        notificationText.transform.localScale = originalScale;
     }
 }

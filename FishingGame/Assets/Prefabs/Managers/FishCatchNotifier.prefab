@@ -45,4 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationText: {fileID: 6579945127010145702, guid: 6bcd46f575eec71439e93c48790890c0, type: 3}
+  popScale: 1.3
+  popDuration: 0.5
+  endScaleDuration: 0.5
   displayDuration: 2

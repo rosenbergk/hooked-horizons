@@ -12,7 +12,7 @@ public class FishWeightDisplay : MonoBehaviour
     private float popScale;
 
     [SerializeField]
-    private float popDuration;
+    private float popDuration = 1;
 
     private Vector3 originalScale;
     private Coroutine popRoutine;
