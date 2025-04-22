@@ -20,7 +20,7 @@ public class FishWeightManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void RegisterFishCatch(int fishType)
+    public float RegisterFishCatch(int fishType)
     {
         int index = fishType - 1;
         if (fishWeightRanges != null && index < fishWeightRanges.Length)
@@ -29,10 +29,12 @@ public class FishWeightManager : MonoBehaviour
             float weight = Random.Range(range.x, range.y);
             TotalFishPounds += weight;
             FindAnyObjectByType<FishWeightDisplay>()?.UpdateFishWeightText();
+            return weight;
         }
         else
         {
             Debug.LogWarning("No defined weight range for fish type: " + fishType);
+            return 0f;
         }
     }
 

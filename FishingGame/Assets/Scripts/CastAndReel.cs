@@ -165,7 +165,7 @@ public class CastAndReel : MonoBehaviour
             else
             {
                 Debug.Log("RollForCatch: Fish caught: " + catchResult);
-                FishWeightManager.Instance.RegisterFishCatch(catchResult);
+                float fishWeight = FishWeightManager.Instance.RegisterFishCatch(catchResult);
                 fishCaught = true;
 
                 int fishIndex = catchResult - 1;
@@ -192,6 +192,7 @@ public class CastAndReel : MonoBehaviour
                         Debug.Log("Fish caught and named: " + assignedName);
 
                         fish.Catch(hookRb.transform);
+                        FishCatchNotifier.Instance.ShowCatchNotification(fishWeight, assignedName);
                     }
                     else
                     {
