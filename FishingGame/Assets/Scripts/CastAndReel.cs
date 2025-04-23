@@ -229,4 +229,14 @@ public class CastAndReel : MonoBehaviour
     {
         return isReeling;
     }
+
+    public float GetHookRestDistance()
+    {
+        return hookRestDistance;
+    }
+
+    public float GetHookRodDistance()
+    {
+        return Vector3.Distance(hookRb.position, rodTip.position);
+    }
 }
