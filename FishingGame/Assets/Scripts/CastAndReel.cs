@@ -30,9 +30,6 @@ public class CastAndReel : MonoBehaviour
     private float rollInterval = 5f;
 
     [SerializeField]
-    private TugOfWarManager tugManager;
-
-    [SerializeField]
     private float hookRestDistance;
 
     private GameObject currentFish;
@@ -113,7 +110,7 @@ public class CastAndReel : MonoBehaviour
         {
             hookRb.linearVelocity = Vector3.zero;
             Vector3 direction = (rodTip.position - hookRb.position).normalized;
-            float effectiveReelSpeed = reelSpeed * tugManager.reelMultiplier;
+            float effectiveReelSpeed = reelSpeed * TugOfWarManager.Instance.reelMultiplier;
             hookRb.linearVelocity = direction * effectiveReelSpeed;
             if (Vector3.Distance(hookRb.position, rodTip.position) < hookRestDistance)
             {
@@ -134,10 +131,11 @@ public class CastAndReel : MonoBehaviour
 
                 Debug.Log("Hook distance: " + Vector3.Distance(hookRb.position, rodTip.position));
                 Debug.Log(
-                    "After activation, slider active: " + tugManager.tugSlider.gameObject.activeSelf
+                    "After activation, slider active: "
+                        + TugOfWarManager.Instance.tugSlider.gameObject.activeSelf
                 );
 
-                tugManager.DeactivateSlider();
+                TugOfWarManager.Instance.DeactivateSlider();
                 Debug.Log("Reeling finished, slider deactivated.");
             }
         }
@@ -200,7 +198,7 @@ public class CastAndReel : MonoBehaviour
                     }
 
                     currentFish = fishInstance;
-                    tugManager.ActivateSlider();
+                    TugOfWarManager.Instance.ActivateSlider();
                 }
             }
         }

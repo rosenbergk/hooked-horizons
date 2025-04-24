@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class TugOfWarManager : MonoBehaviour
 {
+    public static TugOfWarManager Instance;
     public Slider tugSlider;
     public float reelMultiplier = 1f;
 
@@ -30,6 +31,8 @@ public class TugOfWarManager : MonoBehaviour
 
     void Start()
     {
+        Instance = this;
+
         if (tugSlider == null)
             Debug.LogError("tugSlider not assigned!");
         else
