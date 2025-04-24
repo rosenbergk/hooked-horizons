@@ -9,14 +9,11 @@ public class TugOfWarManager : MonoBehaviour
     public Slider tugSlider;
     public TugOfWarUI ui;
     public float maxValue = 100f;
-    public float leftRedStart = 0f;
-    public float rightRedStart = 80f;
-    public float greenWidth = 20f;
+    public float rightRedStart = 85f;
+    public float greenWidth = 15f;
     public float decayRate = 0.1f;
     public float boostAmount = 5f;
     public float encroachRate = 1f;
-    public float secondsRequiredInGreen;
-
     public float requiredGreenTime = 5f;
 
     private float currentLeftRedEnd;
@@ -50,27 +47,22 @@ public class TugOfWarManager : MonoBehaviour
         if (!sliderActive)
             return;
 
-        // 1) continuous decay
         tugSlider.value = Mathf.Max(tugSlider.value - decayRate * Time.deltaTime, 0f);
 
-        // 2) space boost
         if (Input.GetKeyDown(KeyCode.Space))
         {
             tugSlider.value = Mathf.Min(tugSlider.value + boostAmount, maxValue);
         }
 
-        // 3) compute zone boundaries
         float greenStart = (maxValue - greenWidth) * 0.5f;
         float greenEnd = greenStart + greenWidth;
 
-        // 4) check fail immediately if in a red zone
         if (tugSlider.value <= currentLeftRedEnd || tugSlider.value >= currentRightRedEnd)
         {
             Fail();
             return;
         }
 
-        // 5) if in left-yellow, encroach left red inward
         if (tugSlider.value < greenStart)
         {
             currentLeftRedEnd = Mathf.Min(
@@ -79,7 +71,6 @@ public class TugOfWarManager : MonoBehaviour
             );
             timeInGreen = 0f;
         }
-        // 6) if in right-yellow, encroach right red inward
         else if (tugSlider.value > greenEnd)
         {
             currentRightRedEnd = Mathf.Max(
@@ -88,7 +79,6 @@ public class TugOfWarManager : MonoBehaviour
             );
             timeInGreen = 0f;
         }
-        // 7) if in green, accumulate time
         else
         {
             timeInGreen += Time.deltaTime;
@@ -99,16 +89,11 @@ public class TugOfWarManager : MonoBehaviour
             }
         }
 
-        // 8) clamp timeInGreen so it never drifts
         timeInGreen = Mathf.Clamp(timeInGreen, 0f, requiredGreenTime);
 
         ui.UpdateZones(currentLeftRedEnd, currentRightRedEnd);
     }
 
-    /// <summary>
-    /// Call this to kick off a tug-of-war for a newly hooked fish.
-    /// </summary>
-    /// <param name="fishDecay">How fast the slider should drift down (e.g. 0.1f for fish1, 0.2f for fish2, etc)</param>
     public void ActivateSlider(float fishDecay)
     {
         decayRate = fishDecay;
@@ -118,11 +103,10 @@ public class TugOfWarManager : MonoBehaviour
         ui.Initialize(maxValue, greenWidth);
         ActivateUI();
 
-        // reset everything
-        currentLeftRedEnd = leftRedStart;
+        currentLeftRedEnd = maxValue - rightRedStart;
         currentRightRedEnd = rightRedStart;
         timeInGreen = 0f;
-        tugSlider.value = maxValue * 0.5f; // start in middle
+        tugSlider.value = maxValue * 0.5f;
     }
 
     public void DeactivateSlider()
