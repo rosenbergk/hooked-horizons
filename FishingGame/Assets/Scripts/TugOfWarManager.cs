@@ -1,95 +1,140 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TugOfWarManager : MonoBehaviour
 {
     public static TugOfWarManager Instance;
+
     public Slider tugSlider;
-    public float reelMultiplier = 1f;
+    public float maxValue = 100f;
+    public float leftRedStart = 0f;
+    public float rightRedStart = 80f;
+    public float greenWidth = 20f;
+    public float decayRate = 0.1f;
+    public float boostAmount = 5f;
+    public float encroachRate = 1f;
+    public float secondsRequiredInGreen;
 
-    [SerializeField]
-    private float tensionIncreaseRate = 0.2f;
+    public float requiredGreenTime = 5f;
 
-    [SerializeField]
-    private float tensionDecayRate = 0.1f;
+    private float currentLeftRedEnd;
+    private float currentRightRedEnd;
+    private float timeInGreen;
+    private bool sliderActive;
 
-    [SerializeField]
-    private float fishPullForce = 0.05f;
+    public event Action OnFailure;
+    public event Action OnSuccess;
 
-    [SerializeField]
-    private float successBoost = 0.15f;
-
-    [SerializeField]
-    private float penaltyDrain = 0.1f;
-
-    [SerializeField]
-    private float sweetSpotCenter = 0.5f;
-
-    [SerializeField]
-    private float sweetSpotWidth = 0.1f;
-    private float currentTension = 0.5f;
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
-        Instance = this;
-
         if (tugSlider == null)
-            Debug.LogError("tugSlider not assigned!");
+            Debug.LogError("TugOfWarManager: assign a Slider!");
         else
         {
-            tugSlider.value = currentTension;
-            Debug.Log("TugOfWarManager started.");
+            tugSlider.minValue = 0f;
+            tugSlider.maxValue = maxValue;
+            DeactivateSlider();
         }
     }
 
     void Update()
     {
-        currentTension +=
-            (currentTension > sweetSpotCenter ? -fishPullForce : fishPullForce) * Time.deltaTime;
+        if (!sliderActive)
+            return;
+
+        // 1) continuous decay
+        tugSlider.value = Mathf.Max(tugSlider.value - decayRate * Time.deltaTime, 0f);
+
+        // 2) space boost
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (IsWithinSweetSpot())
+            tugSlider.value = Mathf.Min(tugSlider.value + boostAmount, maxValue);
+        }
+
+        // 3) compute zone boundaries
+        float greenStart = (maxValue - greenWidth) * 0.5f;
+        float greenEnd = greenStart + greenWidth;
+
+        // 4) check fail immediately if in a red zone
+        if (tugSlider.value <= currentLeftRedEnd || tugSlider.value >= currentRightRedEnd)
+        {
+            Fail();
+            return;
+        }
+
+        // 5) if in left-yellow, encroach left red inward
+        if (tugSlider.value < greenStart)
+        {
+            currentLeftRedEnd = Mathf.Min(
+                currentLeftRedEnd + encroachRate * Time.deltaTime,
+                greenStart
+            );
+            timeInGreen = 0f;
+        }
+        // 6) if in right-yellow, encroach right red inward
+        else if (tugSlider.value > greenEnd)
+        {
+            currentRightRedEnd = Mathf.Max(
+                currentRightRedEnd - encroachRate * Time.deltaTime,
+                greenEnd
+            );
+            timeInGreen = 0f;
+        }
+        // 7) if in green, accumulate time
+        else
+        {
+            timeInGreen += Time.deltaTime;
+            if (timeInGreen >= requiredGreenTime)
             {
-                currentTension += successBoost;
-                Debug.Log("Space pressed: within sweet spot.");
-            }
-            else
-            {
-                currentTension -= penaltyDrain;
-                Debug.Log("Space pressed: outside sweet spot.");
+                Success();
+                return;
             }
         }
-        currentTension = Mathf.Lerp(
-            currentTension,
-            sweetSpotCenter,
-            tensionDecayRate * Time.deltaTime
-        );
-        currentTension = Mathf.Clamp01(currentTension);
-        if (tugSlider != null)
-            tugSlider.value = currentTension;
-        reelMultiplier = currentTension;
+
+        // 8) clamp timeInGreen so it never drifts
+        timeInGreen = Mathf.Clamp(timeInGreen, 0f, requiredGreenTime);
     }
 
-    private bool IsWithinSweetSpot()
+    /// <summary>
+    /// Call this to kick off a tug-of-war for a newly hooked fish.
+    /// </summary>
+    /// <param name="fishDecay">How fast the slider should drift down (e.g. 0.1f for fish1, 0.2f for fish2, etc)</param>
+    public void ActivateSlider(float fishDecay)
     {
-        return currentTension >= (sweetSpotCenter - sweetSpotWidth)
-            && currentTension <= (sweetSpotCenter + sweetSpotWidth);
-    }
-
-    public void SetDifficulty(float newSweetSpotWidth, float newFishPullForce)
-    {
-        sweetSpotWidth = newSweetSpotWidth;
-        fishPullForce = newFishPullForce;
-        Debug.Log("Difficulty updated.");
-    }
-
-    public void ActivateSlider()
-    {
+        decayRate = fishDecay;
+        sliderActive = true;
         tugSlider.gameObject.SetActive(true);
+
+        // reset everything
+        currentLeftRedEnd = leftRedStart;
+        currentRightRedEnd = rightRedStart;
+        timeInGreen = 0f;
+        tugSlider.value = maxValue * 0.5f; // start in middle
     }
 
     public void DeactivateSlider()
     {
+        sliderActive = false;
         tugSlider.gameObject.SetActive(false);
+    }
+
+    private void Fail()
+    {
+        DeactivateSlider();
+        OnFailure?.Invoke();
+        Debug.Log("TugOfWar: you drifted into the red zone — failure!");
+    }
+
+    private void Success()
+    {
+        DeactivateSlider();
+        OnSuccess?.Invoke();
+        Debug.Log("TugOfWar: 5 seconds perched in green — success!");
     }
 }

@@ -51,6 +51,12 @@ public class CastAndReel : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            SetToDebug();
+            Debug.Log("Set to debug");
+        }
+
         HandleChargeInput();
         ProcessCharging();
         HandleCastRelease();
@@ -110,8 +116,8 @@ public class CastAndReel : MonoBehaviour
         {
             hookRb.linearVelocity = Vector3.zero;
             Vector3 direction = (rodTip.position - hookRb.position).normalized;
-            float effectiveReelSpeed = reelSpeed * TugOfWarManager.Instance.reelMultiplier;
-            hookRb.linearVelocity = direction * effectiveReelSpeed;
+            hookRb.linearVelocity = direction * reelSpeed;
+
             if (Vector3.Distance(hookRb.position, rodTip.position) < hookRestDistance)
             {
                 hookRb.isKinematic = true;
@@ -198,7 +204,8 @@ public class CastAndReel : MonoBehaviour
                     }
 
                     currentFish = fishInstance;
-                    TugOfWarManager.Instance.ActivateSlider();
+                    float fishDecayRate = 2f + (catchResult - 1) * 1.2f;
+                    TugOfWarManager.Instance.ActivateSlider(fishDecayRate);
                 }
             }
         }
@@ -236,5 +243,11 @@ public class CastAndReel : MonoBehaviour
     public float GetHookRodDistance()
     {
         return Vector3.Distance(hookRb.position, rodTip.position);
+    }
+
+    // ONLY FOR DEBUGGING
+    private void SetToDebug()
+    {
+        rollInterval = 0.3f;
     }
 }
