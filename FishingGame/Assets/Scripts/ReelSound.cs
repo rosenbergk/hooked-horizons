@@ -10,7 +10,7 @@ public class ReelSound : MonoBehaviour
     private AudioClip reelClip;
 
     [SerializeField]
-    private float reelVolume = 1f;
+    private float reelVolume = 0.8f;
 
     private AudioSource audioSource;
     private bool wasReeling;

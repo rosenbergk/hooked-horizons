@@ -885,7 +885,6 @@ MonoBehaviour:
   pivot: {fileID: 6798923321743189127}
   revolveSpeed: 300
   castAndReel: {fileID: 9043973205233677377}
-  reelSound: {fileID: 4390363832516994001}
 --- !u!114 &4390363832516994001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,7 +899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   castAndReel: {fileID: 9043973205233677377}
   reelClip: {fileID: 8300000, guid: b733cdbb45455d142821d3d6b5a452ed, type: 3}
-  reelVolume: 1
+  reelVolume: 0.8
 --- !u!82 &5279098685537322094
 AudioSource:
   m_ObjectHideFlags: 0

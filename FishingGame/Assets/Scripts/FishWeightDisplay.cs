@@ -19,7 +19,7 @@ public class FishWeightDisplay : MonoBehaviour
 
     public void Start()
     {
-        fishWeightText.text = $"Fish caught: {FishWeightManager.Instance.TotalFishPounds:F2} lbs";
+        fishWeightText.text = $"Fish caught: {FishWeightManager.Instance.TotalFishPounds:F2} lbs.";
         originalScale = fishWeightText.transform.localScale;
     }
 
@@ -28,7 +28,7 @@ public class FishWeightDisplay : MonoBehaviour
         if (FishWeightManager.Instance != null && fishWeightText != null)
         {
             fishWeightText.text =
-                $"Fish caught: {FishWeightManager.Instance.TotalFishPounds:F2} lbs";
+                $"Fish caught: {FishWeightManager.Instance.TotalFishPounds:F2} lbs.";
         }
 
         if (popRoutine != null)
