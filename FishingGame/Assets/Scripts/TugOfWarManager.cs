@@ -7,6 +7,7 @@ public class TugOfWarManager : MonoBehaviour
     public static TugOfWarManager Instance;
 
     public Slider tugSlider;
+    public TugOfWarUI ui;
     public float maxValue = 100f;
     public float leftRedStart = 0f;
     public float rightRedStart = 80f;
@@ -40,6 +41,7 @@ public class TugOfWarManager : MonoBehaviour
             tugSlider.minValue = 0f;
             tugSlider.maxValue = maxValue;
             DeactivateSlider();
+            DeactivateUI();
         }
     }
 
@@ -99,6 +101,8 @@ public class TugOfWarManager : MonoBehaviour
 
         // 8) clamp timeInGreen so it never drifts
         timeInGreen = Mathf.Clamp(timeInGreen, 0f, requiredGreenTime);
+
+        ui.UpdateZones(currentLeftRedEnd, currentRightRedEnd);
     }
 
     /// <summary>
@@ -110,6 +114,9 @@ public class TugOfWarManager : MonoBehaviour
         decayRate = fishDecay;
         sliderActive = true;
         tugSlider.gameObject.SetActive(true);
+
+        ui.Initialize(maxValue, greenWidth);
+        ActivateUI();
 
         // reset everything
         currentLeftRedEnd = leftRedStart;
@@ -127,6 +134,7 @@ public class TugOfWarManager : MonoBehaviour
     private void Fail()
     {
         DeactivateSlider();
+        DeactivateUI();
         OnFailure?.Invoke();
         Debug.Log("TugOfWar: you drifted into the red zone — failure!");
     }
@@ -134,7 +142,18 @@ public class TugOfWarManager : MonoBehaviour
     private void Success()
     {
         DeactivateSlider();
+        DeactivateUI();
         OnSuccess?.Invoke();
         Debug.Log("TugOfWar: 5 seconds perched in green — success!");
+    }
+
+    private void ActivateUI()
+    {
+        ui.SetActive(true);
+    }
+
+    private void DeactivateUI()
+    {
+        ui.SetActive(false);
     }
 }

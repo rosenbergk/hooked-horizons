@@ -204,7 +204,7 @@ public class CastAndReel : MonoBehaviour
                     }
 
                     currentFish = fishInstance;
-                    float fishDecayRate = 2f + (catchResult - 1) * 1.2f;
+                    float fishDecayRate = SetFishDecayRate(catchResult);
                     TugOfWarManager.Instance.ActivateSlider(fishDecayRate);
                 }
             }
@@ -243,6 +243,11 @@ public class CastAndReel : MonoBehaviour
     public float GetHookRodDistance()
     {
         return Vector3.Distance(hookRb.position, rodTip.position);
+    }
+
+    private float SetFishDecayRate(int catchResult)
+    {
+        return 3f + (catchResult - 1) * 1.2f;
     }
 
     // ONLY FOR DEBUGGING
