@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HookSplash : MonoBehaviour
 {
+    private CastAndReel castAndReel;
+
     [SerializeField]
     private AudioClip splashClip;
 
@@ -19,6 +21,9 @@ public class HookSplash : MonoBehaviour
     [SerializeField]
     private float exitThreshold = -0.1f;
 
+    [SerializeField]
+    private GameObject splashEffectPrefab;  
+
     private bool wasBelowWater;
     private bool wasBelowExitThreshold;
     private AudioSource audioSource;
@@ -26,6 +31,7 @@ public class HookSplash : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        castAndReel = GetComponentInParent<CastAndReel>();
         wasBelowWater = transform.position.y < 0f;
     }
 
@@ -33,10 +39,15 @@ public class HookSplash : MonoBehaviour
     {
         bool isBelowWater = transform.position.y < waterLevel;
 
-        if (!wasBelowWater && isBelowWater)
-        {
-            audioSource.PlayOneShot(splashClip, enterVolume);
-        }
+        if (!wasBelowWater && isBelowWater && castAndReel != null && castAndReel.IsCasting())
+            {
+                audioSource.PlayOneShot(splashClip, enterVolume);
+
+                if (splashEffectPrefab != null)
+                {
+                    Instantiate(splashEffectPrefab, transform.position, Quaternion.identity);
+                }
+            }
 
         bool isBelowExit = transform.position.y < exitThreshold;
 

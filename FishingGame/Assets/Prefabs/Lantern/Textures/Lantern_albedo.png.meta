@@ -71,5 +71,5 @@ AssetOrigin:
   productId: 89820
   packageName: Realistic Lantern
   packageVersion: 1.1
-  assetPath: Assets/Lantern/Textures/Lantern_albedo.png
+  assetPath: Assets/Prefabs/Lantern/Textures/Lantern_albedo.png
   uploadId: 360458

@@ -15,5 +15,5 @@ AssetOrigin:
   productId: 89820
   packageName: Realistic Lantern
   packageVersion: 1.1
-  assetPath: Assets/Lantern/Scripts/Lantern_Toggle.cs
+  assetPath: Assets/Prefabs/Lantern/Scripts/Lantern_Toggle.cs
   uploadId: 360458
