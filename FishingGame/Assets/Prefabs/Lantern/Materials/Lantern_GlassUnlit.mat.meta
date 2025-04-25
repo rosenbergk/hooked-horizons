@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5bd40af47e398d94aac385bbc4c8f80b
+timeCreated: 1493653524
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89820
+  packageName: Realistic Lantern
+  packageVersion: 1.1
+  assetPath: Assets/Lantern/Materials/Lantern_GlassUnlit.mat
+  uploadId: 360458

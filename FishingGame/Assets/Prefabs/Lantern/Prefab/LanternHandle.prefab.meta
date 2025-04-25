@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c1aad8d0383a0cd4cb7f7fda136e742a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89820
+  packageName: Realistic Lantern
+  packageVersion: 1.1
+  assetPath: Assets/Lantern/Prefab/LanternHandle.prefab
+  uploadId: 360458

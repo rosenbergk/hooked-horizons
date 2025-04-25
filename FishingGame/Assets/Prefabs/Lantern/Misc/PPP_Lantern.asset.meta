@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 17fb6ea266a3ba2428fad26bd8d747d0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89820
+  packageName: Realistic Lantern
+  packageVersion: 1.1
+  assetPath: Assets/Lantern/Misc/PPP_Lantern.asset
+  uploadId: 360458

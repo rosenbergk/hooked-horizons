@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4bb0f1a82afb6a44aa0e8736e2712152
+timeCreated: 1539886837
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89820
+  packageName: Realistic Lantern
+  packageVersion: 1.1
+  assetPath: Assets/Lantern/Instructions.txt
+  uploadId: 360458

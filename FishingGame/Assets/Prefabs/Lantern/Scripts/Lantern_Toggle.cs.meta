@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: e9e26ef8a947abd49912757c4367b5eb
+timeCreated: 1493930926
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89820
+  packageName: Realistic Lantern
+  packageVersion: 1.1
+  assetPath: Assets/Lantern/Scripts/Lantern_Toggle.cs
+  uploadId: 360458

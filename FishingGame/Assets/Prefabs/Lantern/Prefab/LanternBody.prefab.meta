@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 89decba25d3d86a488907d6800b9ca70
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89820
+  packageName: Realistic Lantern
+  packageVersion: 1.1
+  assetPath: Assets/Lantern/Prefab/LanternBody.prefab
+  uploadId: 360458

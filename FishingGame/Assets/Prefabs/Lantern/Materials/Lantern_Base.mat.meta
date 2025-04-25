@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e8f132c1845a98c4387eee8b9fca3e12
+timeCreated: 1493653524
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89820
+  packageName: Realistic Lantern
+  packageVersion: 1.1
+  assetPath: Assets/Lantern/Materials/Lantern_Base.mat
+  uploadId: 360458

@@ -39,6 +39,23 @@ public class WaterReflection : MonoBehaviour
 
     private void RenderReflection()
     {
+        if (RenderSettings.skybox != null)
+            {
+                reflectionCamera.clearFlags = CameraClearFlags.Skybox;
+                reflectionCamera.backgroundColor = RenderSettings.ambientSkyColor;
+            }
+            else
+            {
+                reflectionCamera.clearFlags = CameraClearFlags.SolidColor;
+                reflectionCamera.backgroundColor = Color.black;
+            }
+        RenderSettings.ambientMode = RenderSettings.ambientMode;
+        RenderSettings.ambientLight = RenderSettings.ambientLight;
+        RenderSettings.fog = RenderSettings.fog;
+        RenderSettings.fogColor = RenderSettings.fogColor;
+        RenderSettings.fogDensity = RenderSettings.fogDensity;
+        RenderSettings.fogStartDistance = RenderSettings.fogStartDistance;
+        RenderSettings.fogEndDistance = RenderSettings.fogEndDistance;
         // take main camera directions and position world space
         Vector3 cameraDirectionWorldSpace = mainCamTransform.forward;
         Vector3 cameraUpWorldSpace = mainCamTransform.up;
