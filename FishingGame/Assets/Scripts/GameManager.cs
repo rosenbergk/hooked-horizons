@@ -30,5 +30,6 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("Game starts");
+        FishWeightManager.Instance.ResetTotalFishPounds();
     }
 }
