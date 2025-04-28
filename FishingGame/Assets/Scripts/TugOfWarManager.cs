@@ -10,8 +10,8 @@ public class TugOfWarManager : MonoBehaviour
     public TugOfWarUI ui;
     public float maxValue = 100f;
     public float rightRedStart = 85f;
-    public float greenWidth = 15f;
-    public float decayRate = 0.1f;
+    public float greenWidth = 8f;
+    public float decayRate = 0.8f;
     public float boostAmount = 5f;
     public float encroachRate = 1f;
     public float requiredGreenTime = 5f;
