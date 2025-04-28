@@ -46,7 +46,6 @@ public class CastAndReel : MonoBehaviour
     {
         mainCam = Camera.main;
         fishCatcher = FindAnyObjectByType<FishCatcher>();
-        Debug.Log("CastAndReel started.");
     }
 
     void Update()
@@ -66,7 +65,6 @@ public class CastAndReel : MonoBehaviour
     void FixedUpdate()
     {
         ProcessReeling();
-        ProcessBuoyancy();
         ProcessFishCatching();
     }
 
@@ -135,24 +133,8 @@ public class CastAndReel : MonoBehaviour
                     currentFish = null;
                 }
 
-                Debug.Log("Hook distance: " + Vector3.Distance(hookRb.position, rodTip.position));
-                Debug.Log(
-                    "After activation, slider active: "
-                        + TugOfWarManager.Instance.tugSlider.gameObject.activeSelf
-                );
-
                 TugOfWarManager.Instance.DeactivateSlider();
-                Debug.Log("Reeling finished, slider deactivated.");
             }
-        }
-    }
-
-    private void ProcessBuoyancy()
-    {
-        if (!hookRb.isKinematic && !isReeling && hookRb.position.y < waterLevel)
-        {
-            float depth = waterLevel - hookRb.position.y;
-            hookRb.AddForce(Vector3.up * depth * buoyancyForce, ForceMode.Acceleration);
         }
     }
 
