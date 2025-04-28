@@ -57,41 +57,11 @@ public class TugOfWarManager : MonoBehaviour
         float greenStart = (maxValue - greenWidth) * 0.5f;
         float greenEnd = greenStart + greenWidth;
 
-        if (tugSlider.value <= currentLeftRedEnd || tugSlider.value >= currentRightRedEnd)
-        {
-            Fail();
-            return;
-        }
-
-        if (tugSlider.value < greenStart)
-        {
-            currentLeftRedEnd = Mathf.Min(
-                currentLeftRedEnd + encroachRate * Time.deltaTime,
-                greenStart
-            );
-            timeInGreen = 0f;
-        }
-        else if (tugSlider.value > greenEnd)
-        {
-            currentRightRedEnd = Mathf.Max(
-                currentRightRedEnd - encroachRate * Time.deltaTime,
-                greenEnd
-            );
-            timeInGreen = 0f;
-        }
-        else
-        {
-            timeInGreen += Time.deltaTime;
-            if (timeInGreen >= requiredGreenTime)
-            {
-                Success();
-                return;
-            }
-        }
-
         timeInGreen = Mathf.Clamp(timeInGreen, 0f, requiredGreenTime);
 
         ui.UpdateZones(currentLeftRedEnd, currentRightRedEnd);
+
+        CheckSliderValue(greenStart, greenEnd);
     }
 
     public void ActivateSlider(float fishDecay)
@@ -139,5 +109,40 @@ public class TugOfWarManager : MonoBehaviour
     private void DeactivateUI()
     {
         ui.SetActive(false);
+    }
+
+    private void CheckSliderValue(float greenStart, float greenEnd)
+    {
+        if (tugSlider.value <= currentLeftRedEnd || tugSlider.value >= currentRightRedEnd)
+        {
+            Fail();
+            return;
+        }
+
+        if (tugSlider.value < greenStart)
+        {
+            currentLeftRedEnd = Mathf.Min(
+                currentLeftRedEnd + encroachRate * Time.deltaTime,
+                greenStart
+            );
+            timeInGreen = 0f;
+        }
+        else if (tugSlider.value > greenEnd)
+        {
+            currentRightRedEnd = Mathf.Max(
+                currentRightRedEnd - encroachRate * Time.deltaTime,
+                greenEnd
+            );
+            timeInGreen = 0f;
+        }
+        else
+        {
+            timeInGreen += Time.deltaTime;
+            if (timeInGreen >= requiredGreenTime)
+            {
+                Success();
+                return;
+            }
+        }
     }
 }
