@@ -25,16 +25,18 @@ public class CastAndReel : MonoBehaviour
     [SerializeField]
     private float hookRestDistance;
 
-    private GameObject currentFish;
-    private float currentCastForce;
+    private Camera mainCam;
+    private FishCatcher fishCatcher;
+
     private bool isCharging = false;
     private bool isCasting = false;
     private bool isReeling = false;
-    private Camera mainCam;
-    private FishCatcher fishCatcher;
+
+    private float currentCastForce;
+    private GameObject currentFish;
     private bool fishCaught = false;
-    private float nextRollTime = 0f;
     private int pendingFishType = 0;
+    private float nextRollTime = 0f;
 
     void Start()
     {
@@ -64,8 +66,28 @@ public class CastAndReel : MonoBehaviour
 
     void FixedUpdate()
     {
-        ProcessReeling();
-        ProcessFishCatching();
+        UpdateReelingMotion();
+        TryCatchFish();
+    }
+
+    public bool IsReeling()
+    {
+        return isReeling;
+    }
+
+    public bool IsCasting()
+    {
+        return isCasting;
+    }
+
+    public float GetHookRodDistance()
+    {
+        return Vector3.Distance(hookRb.position, rodTip.position);
+    }
+
+    public float GetHookRestDistance()
+    {
+        return hookRestDistance;
     }
 
     private void HandleChargeInput()
@@ -83,9 +105,9 @@ public class CastAndReel : MonoBehaviour
         {
             currentCastForce += chargeSpeed * Time.deltaTime;
             currentCastForce = Mathf.Clamp(currentCastForce, minCastForce, maxCastForce);
-            Vector3 castDirection = mainCam.transform.forward;
-            castDirection.y = Mathf.Clamp(castDirection.y, -0.1f, 0.3f);
-            arcPreview.ShowArc(castDirection, currentCastForce);
+            Vector3 dir = mainCam.transform.forward;
+            dir.y = Mathf.Clamp(dir.y, -0.1f, 0.3f);
+            arcPreview.ShowArc(dir, currentCastForce);
         }
         else
         {
@@ -103,6 +125,20 @@ public class CastAndReel : MonoBehaviour
         }
     }
 
+    private void CastHook()
+    {
+        isCasting = true;
+        hookRb.isKinematic = false;
+        nextRollTime = Time.time + rollInterval;
+        Vector3 forward = mainCam.transform.forward;
+        forward.y = 0f;
+        forward.Normalize();
+        Vector3 castDirection = (forward + Vector3.up * 0.5f).normalized;
+        hookRb.linearVelocity = Vector3.zero;
+        hookRb.AddForce(castDirection * currentCastForce, ForceMode.VelocityChange);
+        Debug.Log("Hook cast with force: " + currentCastForce);
+    }
+
     private void UpdateReelingInput()
     {
         isReeling =
@@ -113,147 +149,136 @@ public class CastAndReel : MonoBehaviour
             );
     }
 
-    private void ProcessReeling()
+    private void UpdateReelingMotion()
     {
-        if (isReeling && !hookRb.isKinematic)
+        if (!isReeling || hookRb.isKinematic)
+            return;
+
+        hookRb.linearVelocity = Vector3.zero;
+        Vector3 dir = (rodTip.position - hookRb.position).normalized;
+        hookRb.linearVelocity = dir * reelSpeed;
+
+        if (HasHookReachedRest())
+            CompleteReelSuccess();
+    }
+
+    private bool HasHookReachedRest()
+    {
+        return Vector3.Distance(hookRb.position, rodTip.position) < hookRestDistance;
+    }
+
+    private void CompleteReelSuccess()
+    {
+        hookRb.isKinematic = true;
+        hookRb.linearVelocity = Vector3.zero;
+        TugOfWarManager.Instance.Success();
+        ReleaseCurrentFish();
+        ResetHookState();
+    }
+
+    private void ReleaseCurrentFish()
+    {
+        if (currentFish == null)
+            return;
+        Fish fishScript = currentFish.GetComponent<Fish>();
+        if (fishScript != null)
+            fishScript.ReleaseAndDisappear(2f);
+        else
+            Destroy(currentFish, 2f);
+        currentFish = null;
+    }
+
+    private void TryCatchFish()
+    {
+        if (!isCasting || fishCaught || Time.time < nextRollTime)
+            return;
+
+        int result = fishCatcher.RollForCatch();
+        nextRollTime = Time.time + rollInterval;
+
+        if (result == 0)
         {
-            hookRb.linearVelocity = Vector3.zero;
-            Vector3 direction = (rodTip.position - hookRb.position).normalized;
-            hookRb.linearVelocity = direction * reelSpeed;
-
-            if (Vector3.Distance(hookRb.position, rodTip.position) < hookRestDistance)
-            {
-                hookRb.isKinematic = true;
-                hookRb.linearVelocity = Vector3.zero;
-                isCasting = false;
-                fishCaught = false;
-                nextRollTime = 0f;
-
-                TugOfWarManager.Instance.Success();
-
-                if (currentFish != null)
-                {
-                    Fish fishScript = currentFish.GetComponent<Fish>();
-                    if (fishScript != null)
-                        fishScript.ReleaseAndDisappear(2f);
-                    else
-                        Destroy(currentFish, 2f);
-                    currentFish = null;
-                }
-            }
+            Debug.Log("RollForCatch: No fish.");
+        }
+        else
+        {
+            HandleFishHooked(result);
         }
     }
 
-    private void ProcessFishCatching()
+    private void HandleFishHooked(int fishType)
     {
-        // Only attempt to roll for a fish if casting is active
-        if (isCasting && !fishCaught && Time.time >= nextRollTime)
-        {
-            int catchResult = fishCatcher.RollForCatch();
-            nextRollTime = Time.time + rollInterval;
-            if (catchResult == 0)
-            {
-                Debug.Log("RollForCatch: No fish.");
-            }
-            else
-            {
-                Debug.Log("RollForCatch: Fish hooked: " + catchResult);
-                fishCaught = true;
-                pendingFishType = catchResult;
+        Debug.Log($"RollForCatch: Fish hooked: {fishType}");
+        fishCaught = true;
+        pendingFishType = fishType;
+        currentFish = SpawnAndAttachFish(fishType);
+        ActivateTugOfWar(fishType);
+    }
 
-                int fishIndex = catchResult - 1;
-                if (
-                    fishPrefabs != null
-                    && fishIndex >= 0
-                    && fishIndex < fishPrefabs.Length
-                    && currentFish == null
-                )
-                {
-                    GameObject fishInstance = Instantiate(
-                        fishPrefabs[fishIndex],
-                        hookRb.transform.position,
-                        Quaternion.identity
-                    );
+    private GameObject SpawnAndAttachFish(int fishType)
+    {
+        int index = fishType - 1;
+        if (fishPrefabs == null || index < 0 || index >= fishPrefabs.Length)
+            return null;
 
-                    Fish fish = fishInstance.GetComponent<Fish>();
-                    if (fish != null)
-                    {
-                        fish.Catch(hookRb.transform);
-                    }
-                    else
-                    {
-                        fishInstance.transform.SetParent(hookRb.transform);
-                    }
+        GameObject instance = Instantiate(
+            fishPrefabs[index],
+            hookRb.transform.position,
+            Quaternion.identity
+        );
+        Fish fish = instance.GetComponent<Fish>();
+        if (fish != null)
+            fish.Catch(hookRb.transform);
+        else
+            instance.transform.SetParent(hookRb.transform);
+        return instance;
+    }
 
-                    currentFish = fishInstance;
-                    float fishDecayRate = SetFishDecayRate(catchResult);
-                    TugOfWarManager.Instance.ActivateSlider(fishDecayRate);
-                }
-            }
-        }
+    private void ActivateTugOfWar(int fishType)
+    {
+        float decay = SetFishDecayRate(fishType);
+        TugOfWarManager.Instance.ActivateSlider(decay);
     }
 
     private void HandleFishCaughtSuccess()
     {
-        if (pendingFishType > 0 && currentFish != null)
-        {
-            float fishWeight = FishWeightManager.Instance.RegisterFishCatch(pendingFishType);
-            string assignedName = FishNaming.GetFishName(pendingFishType);
-            Fish fish = currentFish.GetComponent<Fish>();
-            if (fish != null)
-            {
-                fish.SetFishName(assignedName);
-            }
-            FishCatchNotifier.Instance.ShowCatchNotification(fishWeight, assignedName);
-        }
-        pendingFishType = 0;
+        FinalizeCatch();
+        ResetHookState();
     }
 
     private void HandleFishLost()
+    {
+        ReleaseOnFailure();
+        ResetHookState();
+    }
+
+    private void FinalizeCatch()
+    {
+        if (pendingFishType <= 0 || currentFish == null)
+            return;
+        float weight = FishWeightManager.Instance.RegisterFishCatch(pendingFishType);
+        string name = FishNaming.GetFishName(pendingFishType);
+        Fish fish = currentFish.GetComponent<Fish>();
+        if (fish != null)
+            fish.SetFishName(name);
+        FishCatchNotifier.Instance.ShowCatchNotification(weight, name);
+    }
+
+    private void ReleaseOnFailure()
     {
         if (currentFish != null)
         {
             Destroy(currentFish);
             currentFish = null;
         }
-        pendingFishType = 0;
-        fishCaught = false;
-        nextRollTime = 0f;
+    }
+
+    private void ResetHookState()
+    {
         isCasting = false;
-    }
-
-    void CastHook()
-    {
-        isCasting = true;
-        hookRb.isKinematic = false;
-        nextRollTime = Time.time + rollInterval;
-        Vector3 forward = mainCam.transform.forward;
-        forward.y = 0;
-        forward.Normalize();
-        Vector3 castDirection = (forward + Vector3.up * 0.5f).normalized;
-        hookRb.linearVelocity = Vector3.zero;
-        hookRb.AddForce(castDirection * currentCastForce, ForceMode.VelocityChange);
-        Debug.Log("Hook cast with force: " + currentCastForce);
-    }
-
-    public bool IsCasting()
-    {
-        return isCasting;
-    }
-
-    public bool IsReeling()
-    {
-        return isReeling;
-    }
-
-    public float GetHookRestDistance()
-    {
-        return hookRestDistance;
-    }
-
-    public float GetHookRodDistance()
-    {
-        return Vector3.Distance(hookRb.position, rodTip.position);
+        fishCaught = false;
+        pendingFishType = 0;
+        nextRollTime = 0f;
     }
 
     private float SetFishDecayRate(int catchResult)
