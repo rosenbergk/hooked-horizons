@@ -1,10 +1,8 @@
-// CastAndReel.cs
 using UnityEngine;
 
 public class CastAndReel : MonoBehaviour
 {
     public Rigidbody hookRb;
-    public Transform rodPivot;
     public Transform rodTip;
     public CastArcPreview arcPreview;
     public GameObject[] fishPrefabs;
@@ -20,9 +18,6 @@ public class CastAndReel : MonoBehaviour
 
     [SerializeField]
     private float reelSpeed = 5f;
-
-    [SerializeField]
-    private float buoyancyForce;
 
     [SerializeField]
     private float rollInterval = 5f;
@@ -47,7 +42,10 @@ public class CastAndReel : MonoBehaviour
         fishCatcher = FindAnyObjectByType<FishCatcher>();
 
         if (TugOfWarManager.Instance != null)
+        {
             TugOfWarManager.Instance.OnSuccess += HandleFishCaughtSuccess;
+            TugOfWarManager.Instance.OnFailure += HandleFishLost;
+        }
     }
 
     void Update()
@@ -107,7 +105,12 @@ public class CastAndReel : MonoBehaviour
 
     private void UpdateReelingInput()
     {
-        isReeling = Input.GetKey(KeyCode.R) && TugOfWarManager.Instance.IsSliderInGreen();
+        isReeling =
+            Input.GetKey(KeyCode.R)
+            && (
+                TugOfWarManager.Instance.IsSliderInGreen()
+                || !TugOfWarManager.Instance.IsSliderActive()
+            );
     }
 
     private void ProcessReeling()
@@ -143,6 +146,7 @@ public class CastAndReel : MonoBehaviour
 
     private void ProcessFishCatching()
     {
+        // Only attempt to roll for a fish if casting is active
         if (isCasting && !fishCaught && Time.time >= nextRollTime)
         {
             int catchResult = fishCatcher.RollForCatch();
@@ -194,18 +198,28 @@ public class CastAndReel : MonoBehaviour
         if (pendingFishType > 0 && currentFish != null)
         {
             float fishWeight = FishWeightManager.Instance.RegisterFishCatch(pendingFishType);
-
             string assignedName = FishNaming.GetFishName(pendingFishType);
             Fish fish = currentFish.GetComponent<Fish>();
             if (fish != null)
             {
                 fish.SetFishName(assignedName);
             }
-
             FishCatchNotifier.Instance.ShowCatchNotification(fishWeight, assignedName);
         }
-
         pendingFishType = 0;
+    }
+
+    private void HandleFishLost()
+    {
+        if (currentFish != null)
+        {
+            Destroy(currentFish);
+            currentFish = null;
+        }
+        pendingFishType = 0;
+        fishCaught = false;
+        nextRollTime = 0f;
+        isCasting = false;
     }
 
     void CastHook()

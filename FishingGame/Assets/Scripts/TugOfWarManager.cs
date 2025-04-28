@@ -100,6 +100,11 @@ public class TugOfWarManager : MonoBehaviour
         Debug.Log("TugOfWar: hook fully reeled — success!");
     }
 
+    public bool IsSliderActive()
+    {
+        return sliderActive;
+    }
+
     private void Fail()
     {
         DeactivateSlider();
