@@ -14,14 +14,12 @@ public class TugOfWarManager : MonoBehaviour
     public float decayRate = 0.8f;
     public float boostAmount = 5f;
     public float encroachRate = 1f;
-    public float requiredGreenTime = 5f;
 
     [SerializeField]
     private float lossBuffer = 4;
 
     private float currentLeftRedEnd;
     private float currentRightRedEnd;
-    private float timeInGreen;
     private bool sliderActive;
 
     public event Action OnFailure;
@@ -60,8 +58,6 @@ public class TugOfWarManager : MonoBehaviour
         float greenStart = (maxValue - greenWidth) * 0.5f;
         float greenEnd = greenStart + greenWidth;
 
-        timeInGreen = Mathf.Clamp(timeInGreen, 0f, requiredGreenTime);
-
         ui.UpdateZones(currentLeftRedEnd, currentRightRedEnd);
 
         CheckSliderValue(greenStart, greenEnd);
@@ -78,7 +74,6 @@ public class TugOfWarManager : MonoBehaviour
 
         currentLeftRedEnd = maxValue - rightRedStart;
         currentRightRedEnd = rightRedStart;
-        timeInGreen = 0f;
         tugSlider.value = maxValue * 0.5f;
     }
 
@@ -86,6 +81,15 @@ public class TugOfWarManager : MonoBehaviour
     {
         sliderActive = false;
         tugSlider.gameObject.SetActive(false);
+    }
+
+    public bool IsSliderInGreen()
+    {
+        float greenStart = (maxValue - greenWidth) * 0.5f;
+        float greenEnd = greenStart + greenWidth;
+        float val = tugSlider.value;
+
+        return val >= greenStart && val <= greenEnd;
     }
 
     private void Fail()
@@ -131,7 +135,6 @@ public class TugOfWarManager : MonoBehaviour
                 currentLeftRedEnd + encroachRate * Time.deltaTime,
                 greenStart
             );
-            timeInGreen = 0f;
         }
         else if (tugSlider.value > greenEnd)
         {
@@ -139,16 +142,6 @@ public class TugOfWarManager : MonoBehaviour
                 currentRightRedEnd - encroachRate * Time.deltaTime,
                 greenEnd
             );
-            timeInGreen = 0f;
-        }
-        else
-        {
-            timeInGreen += Time.deltaTime;
-            if (timeInGreen >= requiredGreenTime)
-            {
-                Success();
-                return;
-            }
         }
     }
 }

@@ -102,7 +102,7 @@ public class CastAndReel : MonoBehaviour
 
     private void UpdateReelingInput()
     {
-        isReeling = Input.GetKey(KeyCode.R);
+        isReeling = Input.GetKey(KeyCode.R) && TugOfWarManager.Instance.IsSliderInGreen();
     }
 
     private void ProcessReeling()
