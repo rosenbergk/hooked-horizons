@@ -92,20 +92,20 @@ public class TugOfWarManager : MonoBehaviour
         return val >= greenStart && val <= greenEnd;
     }
 
+    public void Success()
+    {
+        DeactivateSlider();
+        DeactivateUI();
+        OnSuccess?.Invoke();
+        Debug.Log("TugOfWar: hook fully reeled — success!");
+    }
+
     private void Fail()
     {
         DeactivateSlider();
         DeactivateUI();
         OnFailure?.Invoke();
         Debug.Log("TugOfWar: you drifted into the red zone — failure!");
-    }
-
-    private void Success()
-    {
-        DeactivateSlider();
-        DeactivateUI();
-        OnSuccess?.Invoke();
-        Debug.Log("TugOfWar: 5 seconds perched in green — success!");
     }
 
     private void ActivateUI()

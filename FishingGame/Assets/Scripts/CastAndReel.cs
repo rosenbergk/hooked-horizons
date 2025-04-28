@@ -1,3 +1,4 @@
+// CastAndReel.cs
 using UnityEngine;
 
 public class CastAndReel : MonoBehaviour
@@ -38,11 +39,15 @@ public class CastAndReel : MonoBehaviour
     private FishCatcher fishCatcher;
     private bool fishCaught = false;
     private float nextRollTime = 0f;
+    private int pendingFishType = 0;
 
     void Start()
     {
         mainCam = Camera.main;
         fishCatcher = FindAnyObjectByType<FishCatcher>();
+
+        if (TugOfWarManager.Instance != null)
+            TugOfWarManager.Instance.OnSuccess += HandleFishCaughtSuccess;
     }
 
     void Update()
@@ -120,6 +125,9 @@ public class CastAndReel : MonoBehaviour
                 isCasting = false;
                 fishCaught = false;
                 nextRollTime = 0f;
+
+                TugOfWarManager.Instance.Success();
+
                 if (currentFish != null)
                 {
                     Fish fishScript = currentFish.GetComponent<Fish>();
@@ -129,8 +137,6 @@ public class CastAndReel : MonoBehaviour
                         Destroy(currentFish, 2f);
                     currentFish = null;
                 }
-
-                TugOfWarManager.Instance.DeactivateSlider();
             }
         }
     }
@@ -147,9 +153,9 @@ public class CastAndReel : MonoBehaviour
             }
             else
             {
-                Debug.Log("RollForCatch: Fish caught: " + catchResult);
-                float fishWeight = FishWeightManager.Instance.RegisterFishCatch(catchResult);
+                Debug.Log("RollForCatch: Fish hooked: " + catchResult);
                 fishCaught = true;
+                pendingFishType = catchResult;
 
                 int fishIndex = catchResult - 1;
                 if (
@@ -165,17 +171,10 @@ public class CastAndReel : MonoBehaviour
                         Quaternion.identity
                     );
 
-                    string assignedName = FishNaming.GetFishName(catchResult);
-
                     Fish fish = fishInstance.GetComponent<Fish>();
-
                     if (fish != null)
                     {
-                        fish.SetFishName(assignedName);
-                        Debug.Log("Fish caught and named: " + assignedName);
-
                         fish.Catch(hookRb.transform);
-                        FishCatchNotifier.Instance.ShowCatchNotification(fishWeight, assignedName);
                     }
                     else
                     {
@@ -188,6 +187,25 @@ public class CastAndReel : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void HandleFishCaughtSuccess()
+    {
+        if (pendingFishType > 0 && currentFish != null)
+        {
+            float fishWeight = FishWeightManager.Instance.RegisterFishCatch(pendingFishType);
+
+            string assignedName = FishNaming.GetFishName(pendingFishType);
+            Fish fish = currentFish.GetComponent<Fish>();
+            if (fish != null)
+            {
+                fish.SetFishName(assignedName);
+            }
+
+            FishCatchNotifier.Instance.ShowCatchNotification(fishWeight, assignedName);
+        }
+
+        pendingFishType = 0;
     }
 
     void CastHook()
