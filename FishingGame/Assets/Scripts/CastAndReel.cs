@@ -21,9 +21,6 @@ public class CastAndReel : MonoBehaviour
     private float reelSpeed = 5f;
 
     [SerializeField]
-    private float waterLevel = 0f;
-
-    [SerializeField]
     private float buoyancyForce;
 
     [SerializeField]

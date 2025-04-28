@@ -16,6 +16,9 @@ public class TugOfWarManager : MonoBehaviour
     public float encroachRate = 1f;
     public float requiredGreenTime = 5f;
 
+    [SerializeField]
+    private float lossBuffer = 4;
+
     private float currentLeftRedEnd;
     private float currentRightRedEnd;
     private float timeInGreen;
@@ -113,7 +116,10 @@ public class TugOfWarManager : MonoBehaviour
 
     private void CheckSliderValue(float greenStart, float greenEnd)
     {
-        if (tugSlider.value <= currentLeftRedEnd || tugSlider.value >= currentRightRedEnd)
+        if (
+            tugSlider.value + lossBuffer <= currentLeftRedEnd
+            || tugSlider.value - lossBuffer >= currentRightRedEnd
+        )
         {
             Fail();
             return;
