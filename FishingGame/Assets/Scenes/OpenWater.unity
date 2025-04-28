@@ -1149,7 +1149,7 @@ PrefabInstance:
       objectReference: {fileID: 504504355101735985}
     - target: {fileID: -4501378859602595140, guid: c574712f67a3cf349b3b8bf3de86ba26, type: 3}
       propertyPath: greenWidth
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -4501378859602595140, guid: c574712f67a3cf349b3b8bf3de86ba26, type: 3}
       propertyPath: tugSliderGameObject
@@ -2878,6 +2878,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CatchNotificationText
       objectReference: {fileID: 0}
+    - target: {fileID: 6579945127010145702, guid: 6bcd46f575eec71439e93c48790890c0, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579945127010145702, guid: 6bcd46f575eec71439e93c48790890c0, type: 3}
+      propertyPath: m_margin.x
+      value: -63.80887
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579945127010145702, guid: 6bcd46f575eec71439e93c48790890c0, type: 3}
+      propertyPath: m_margin.z
+      value: 152.40028
+      objectReference: {fileID: 0}
     - target: {fileID: 7816001624098299258, guid: 6bcd46f575eec71439e93c48790890c0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2944,7 +2956,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7816001624098299258, guid: 6bcd46f575eec71439e93c48790890c0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -64.1
+      value: -43.4
       objectReference: {fileID: 0}
     - target: {fileID: 7816001624098299258, guid: 6bcd46f575eec71439e93c48790890c0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

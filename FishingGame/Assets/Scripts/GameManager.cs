@@ -26,4 +26,9 @@ public class GameManager : MonoBehaviour
         }
         SceneManager.LoadScene(levelName);
     }
+
+    public void StartGame()
+    {
+        Debug.Log("Game starts");
+    }
 }
