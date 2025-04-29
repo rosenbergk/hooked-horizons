@@ -9,13 +9,15 @@ public class TugOfWarUI : MonoBehaviour
         rightYellow,
         rightRed;
     private float maxValue,
-        greenWidth;
+        greenWidth,
+        greenStartOffset;
     private bool uiActive;
 
-    public void Initialize(float sliderMaxValue, float sliderGreenWidth)
+    public void Initialize(float sliderMaxValue, float sliderGreenWidth, float sliderGreenStart)
     {
         maxValue = sliderMaxValue;
         greenWidth = sliderGreenWidth;
+        greenStartOffset = sliderGreenStart;
     }
 
     public void UpdateZones(float leftRedEnd, float rightRedEnd)
@@ -24,9 +26,9 @@ public class TugOfWarUI : MonoBehaviour
             return;
 
         float invMax = 1f / maxValue;
-        float gs = (maxValue - greenWidth) * 0.5f * invMax;
-        float ge = gs + greenWidth * invMax;
         float lr = leftRedEnd * invMax;
+        float gs = greenStartOffset * invMax;
+        float ge = gs + greenWidth * invMax;
         float rr = rightRedEnd * invMax;
 
         SetAnchors(leftRed, 0f, lr);

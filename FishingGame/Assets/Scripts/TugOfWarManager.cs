@@ -36,9 +36,16 @@ public class TugOfWarManager : MonoBehaviour
     [SerializeField]
     private float baseFishDecay = 5f;
 
+    [SerializeField]
+    private float minGreenStart = 30f;
+
+    [SerializeField]
+    private float maxGreenStart = 60f;
+
     private float currentLeftRedEnd;
     private float currentRightRedEnd;
     private bool sliderActive;
+    private float greenStartOffset;
 
     public event Action OnFailure;
     public event Action OnSuccess;
@@ -73,7 +80,7 @@ public class TugOfWarManager : MonoBehaviour
             tugSlider.value = Mathf.Min(tugSlider.value + boostAmount, maxValue);
         }
 
-        float greenStart = (maxValue - greenWidth) * 0.5f;
+        float greenStart = greenStartOffset;
         float greenEnd = greenStart + greenWidth;
 
         ui.UpdateZones(currentLeftRedEnd, currentRightRedEnd);
@@ -84,11 +91,13 @@ public class TugOfWarManager : MonoBehaviour
     public void ActivateSlider(float fishDecay)
     {
         decayRate = fishDecay;
+        greenStartOffset = UnityEngine.Random.Range(minGreenStart, maxGreenStart);
+
         Debug.Log("Decay rate is " + decayRate);
         sliderActive = true;
         tugSlider.gameObject.SetActive(true);
 
-        ui.Initialize(maxValue, greenWidth);
+        ui.Initialize(maxValue, greenWidth, greenStartOffset);
         ActivateUI();
 
         currentLeftRedEnd = maxValue - rightRedStart;
@@ -104,7 +113,7 @@ public class TugOfWarManager : MonoBehaviour
 
     public bool IsSliderInGreen()
     {
-        float greenStart = (maxValue - greenWidth) * 0.5f;
+        float greenStart = greenStartOffset;
         float greenEnd = greenStart + greenWidth;
         float val = tugSlider.value;
 
