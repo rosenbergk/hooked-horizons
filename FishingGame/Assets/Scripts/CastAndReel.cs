@@ -25,12 +25,6 @@ public class CastAndReel : MonoBehaviour
     [SerializeField]
     private float hookRestDistance;
 
-    [SerializeField]
-    private float fishWeightMultiplier = 2.3f;
-
-    [SerializeField]
-    private float baseFishDecay = 5f;
-
     private Camera mainCam;
     private FishCatcher fishCatcher;
     private bool isCharging = false;
@@ -215,7 +209,7 @@ public class CastAndReel : MonoBehaviour
             currentFish.transform.SetParent(hookRb.transform);
         }
 
-        float decay = SetDecayRate(fishWeight);
+        float decay = TugOfWarManager.Instance.CalculateDecayRate(fishWeight);
         TugOfWarManager.Instance.ActivateSlider(decay);
     }
 
@@ -247,11 +241,6 @@ public class CastAndReel : MonoBehaviour
         isCasting = false;
         fishCaught = false;
         nextRollTime = 0f;
-    }
-
-    private float SetDecayRate(float weight)
-    {
-        return baseFishDecay + fishWeightMultiplier * Mathf.Pow(weight, 1f / 3f); // Magic numbers for cube root
     }
 
     // ONLY FOR DEBUGGING

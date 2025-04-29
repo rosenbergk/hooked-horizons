@@ -8,15 +8,33 @@ public class TugOfWarManager : MonoBehaviour
 
     public Slider tugSlider;
     public TugOfWarUI ui;
-    public float maxValue = 100f;
-    public float rightRedStart = 85f;
-    public float greenWidth = 10f;
-    public float decayRate = 0.8f;
-    public float boostAmount = 5f;
-    public float encroachRate = 1f;
+
+    [SerializeField]
+    private float maxValue = 100f;
+
+    [SerializeField]
+    private float rightRedStart = 85f;
+
+    [SerializeField]
+    private float greenWidth = 10f;
+
+    [SerializeField]
+    private float decayRate = 0.8f;
+
+    [SerializeField]
+    private float boostAmount = 5f;
+
+    [SerializeField]
+    private float encroachRate = 1f;
 
     [SerializeField]
     private float lossBuffer = 4;
+
+    [SerializeField]
+    private float fishWeightMultiplier = 2.3f;
+
+    [SerializeField]
+    private float baseFishDecay = 5f;
 
     private float currentLeftRedEnd;
     private float currentRightRedEnd;
@@ -104,6 +122,11 @@ public class TugOfWarManager : MonoBehaviour
     public bool IsSliderActive()
     {
         return sliderActive;
+    }
+
+    public float CalculateDecayRate(float weight)
+    {
+        return baseFishDecay + fishWeightMultiplier * Mathf.Pow(weight, 1f / 3f); // Magic numbers for cube root
     }
 
     private void Fail()
