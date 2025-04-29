@@ -1480,6 +1480,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1545549377}
     - target: {fileID: 3858787059489968316, guid: 493bb4f09e158374e9da6f38fcb3ec6e, type: 3}
+      propertyPath: fishWeightMultiplier
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858787059489968316, guid: 493bb4f09e158374e9da6f38fcb3ec6e, type: 3}
       propertyPath: fishPrefabs.Array.size
       value: 5
       objectReference: {fileID: 0}

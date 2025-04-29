@@ -66,6 +66,7 @@ public class TugOfWarManager : MonoBehaviour
     public void ActivateSlider(float fishDecay)
     {
         decayRate = fishDecay;
+        Debug.Log("Decay rate is " + decayRate);
         sliderActive = true;
         tugSlider.gameObject.SetActive(true);
 

@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class Fish : MonoBehaviour
 {
+    public string FishName { get; private set; }
+
     [SerializeField]
     private Transform mouth;
 
-    public string FishName { get; private set; }
+    private float weight;
 
     public void SetFishName(string name)
     {
         FishName = name;
+    }
+
+    public void SetFishWeight(float weight)
+    {
+        this.weight = weight;
+    }
+
+    public float GetFishWeight()
+    {
+        return weight;
     }
 
     public void Catch(Transform hook)

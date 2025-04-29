@@ -25,9 +25,14 @@ public class CastAndReel : MonoBehaviour
     [SerializeField]
     private float hookRestDistance;
 
+    [SerializeField]
+    private float fishWeightMultiplier = 2.3f;
+
+    [SerializeField]
+    private float baseFishDecay = 5f;
+
     private Camera mainCam;
     private FishCatcher fishCatcher;
-
     private bool isCharging = false;
     private bool isCasting = false;
     private bool isReeling = false;
@@ -35,7 +40,6 @@ public class CastAndReel : MonoBehaviour
     private float currentCastForce;
     private GameObject currentFish;
     private bool fishCaught = false;
-    private int pendingFishType = 0;
     private float nextRollTime = 0f;
 
     void Start()
@@ -70,25 +74,13 @@ public class CastAndReel : MonoBehaviour
         TryCatchFish();
     }
 
-    public bool IsReeling()
-    {
-        return isReeling;
-    }
+    public bool IsReeling() => isReeling;
 
-    public bool IsCasting()
-    {
-        return isCasting;
-    }
+    public bool IsCasting() => isCasting;
 
-    public float GetHookRodDistance()
-    {
-        return Vector3.Distance(hookRb.position, rodTip.position);
-    }
+    public float GetHookRodDistance() => Vector3.Distance(hookRb.position, rodTip.position);
 
-    public float GetHookRestDistance()
-    {
-        return hookRestDistance;
-    }
+    public float GetHookRestDistance() => hookRestDistance;
 
     private void HandleChargeInput()
     {
@@ -153,18 +145,11 @@ public class CastAndReel : MonoBehaviour
     {
         if (!isReeling || hookRb.isKinematic)
             return;
-
         hookRb.linearVelocity = Vector3.zero;
         Vector3 dir = (rodTip.position - hookRb.position).normalized;
         hookRb.linearVelocity = dir * reelSpeed;
-
-        if (HasHookReachedRest())
+        if (Vector3.Distance(hookRb.position, rodTip.position) < hookRestDistance)
             CompleteReelSuccess();
-    }
-
-    private bool HasHookReachedRest()
-    {
-        return Vector3.Distance(hookRb.position, rodTip.position) < hookRestDistance;
     }
 
     private void CompleteReelSuccess()
@@ -193,97 +178,80 @@ public class CastAndReel : MonoBehaviour
         if (!isCasting || fishCaught || Time.time < nextRollTime)
             return;
 
-        int result = fishCatcher.RollForCatch();
+        int fishType = fishCatcher.RollForCatch();
         nextRollTime = Time.time + rollInterval;
 
-        if (result == 0)
+        if (fishType == 0)
         {
             Debug.Log("RollForCatch: No fish.");
         }
         else
         {
-            HandleFishHooked(result);
+            float weight = FishWeightManager.Instance.DetermineFishWeight(fishType);
+            string fishName = FishNaming.GetFishName(fishType);
+            HandleFishHooked(fishType, weight, fishName);
         }
     }
 
-    private void HandleFishHooked(int fishType)
+    private void HandleFishHooked(int fishType, float fishWeight, string fishName)
     {
-        Debug.Log($"RollForCatch: Fish hooked: {fishType}");
+        Debug.Log($"Fish hooked (type {fishType}): weight={fishWeight:F2}, name={fishName}");
         fishCaught = true;
-        pendingFishType = fishType;
-        currentFish = SpawnAndAttachFish(fishType);
-        ActivateTugOfWar(fishType);
-    }
 
-    private GameObject SpawnAndAttachFish(int fishType)
-    {
-        int index = fishType - 1;
-        if (fishPrefabs == null || index < 0 || index >= fishPrefabs.Length)
-            return null;
-
-        GameObject instance = Instantiate(
-            fishPrefabs[index],
+        currentFish = Instantiate(
+            fishPrefabs[fishType - 1],
             hookRb.transform.position,
             Quaternion.identity
         );
-        Fish fish = instance.GetComponent<Fish>();
-        if (fish != null)
-            fish.Catch(hookRb.transform);
+        Fish fishComponent = currentFish.GetComponent<Fish>();
+        if (fishComponent != null)
+        {
+            fishComponent.Catch(hookRb.transform);
+            fishComponent.SetFishWeight(fishWeight);
+            fishComponent.SetFishName(fishName);
+        }
         else
-            instance.transform.SetParent(hookRb.transform);
-        return instance;
-    }
+        {
+            currentFish.transform.SetParent(hookRb.transform);
+        }
 
-    private void ActivateTugOfWar(int fishType)
-    {
-        float decay = SetFishDecayRate(fishType);
+        float decay = SetDecayRate(fishWeight);
         TugOfWarManager.Instance.ActivateSlider(decay);
     }
 
     private void HandleFishCaughtSuccess()
     {
-        FinalizeCatch();
+        if (currentFish != null)
+        {
+            Fish fishComponent = currentFish.GetComponent<Fish>();
+            if (fishComponent != null)
+            {
+                float weight = fishComponent.GetFishWeight();
+                FishWeightManager.Instance.AddFishWeight(weight);
+
+                FishCatchNotifier.Instance.ShowCatchNotification(weight, fishComponent.FishName);
+            }
+        }
+
         ResetHookState();
     }
 
     private void HandleFishLost()
     {
-        ReleaseOnFailure();
+        ReleaseCurrentFish();
         ResetHookState();
-    }
-
-    private void FinalizeCatch()
-    {
-        if (pendingFishType <= 0 || currentFish == null)
-            return;
-        float weight = FishWeightManager.Instance.RegisterFishCatch(pendingFishType);
-        string name = FishNaming.GetFishName(pendingFishType);
-        Fish fish = currentFish.GetComponent<Fish>();
-        if (fish != null)
-            fish.SetFishName(name);
-        FishCatchNotifier.Instance.ShowCatchNotification(weight, name);
-    }
-
-    private void ReleaseOnFailure()
-    {
-        if (currentFish != null)
-        {
-            Destroy(currentFish);
-            currentFish = null;
-        }
     }
 
     private void ResetHookState()
     {
         isCasting = false;
         fishCaught = false;
-        pendingFishType = 0;
         nextRollTime = 0f;
     }
 
-    private float SetFishDecayRate(int catchResult)
+    private float SetDecayRate(float weight)
     {
-        return 3f + (catchResult - 1) * 1.2f;
+        return baseFishDecay + fishWeightMultiplier * Mathf.Pow(weight, 1f / 3f); // Magic numbers for cube root
     }
 
     // ONLY FOR DEBUGGING

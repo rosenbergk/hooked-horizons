@@ -20,15 +20,19 @@ public class FishWeightManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public float RegisterFishCatch(int fishType)
+    public void AddFishWeight(float weight)
+    {
+        TotalFishPounds += weight;
+        FindAnyObjectByType<FishWeightDisplay>()?.UpdateFishWeightText();
+    }
+
+    public float DetermineFishWeight(int fishType)
     {
         int index = fishType - 1;
         if (fishWeightRanges != null && index < fishWeightRanges.Length)
         {
             Vector2 range = fishWeightRanges[index];
             float weight = Random.Range(range.x, range.y);
-            TotalFishPounds += weight;
-            FindAnyObjectByType<FishWeightDisplay>()?.UpdateFishWeightText();
             return weight;
         }
         else
