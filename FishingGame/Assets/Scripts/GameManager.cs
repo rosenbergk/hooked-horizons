@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField]
-    private float timedRollInterval = 2f;
+    private float timedRollInterval = 0.5f;
 
     [SerializeField]
     private float freeplayRollInterval = 4f;

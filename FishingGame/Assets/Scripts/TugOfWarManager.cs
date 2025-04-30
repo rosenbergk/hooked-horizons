@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TugOfWarManager : MonoBehaviour
@@ -19,22 +20,25 @@ public class TugOfWarManager : MonoBehaviour
     private float greenWidth = 10f;
 
     [SerializeField]
-    private float decayRate = 0.8f;
+    private float baseFishDecay = 5f;
 
     [SerializeField]
-    private float boostAmount = 5f;
-
-    [SerializeField]
-    private float encroachRate = 1f;
-
-    [SerializeField]
-    private float lossBuffer = 4;
+    private float timedModeDecayMultiplier = 1.8f;
 
     [SerializeField]
     private float fishWeightMultiplier = 2.3f;
 
     [SerializeField]
-    private float baseFishDecay = 5f;
+    private float encroachRate = 1f;
+
+    [SerializeField]
+    private float lossBuffer = 4f;
+
+    [SerializeField]
+    private float minBoostAmount = 2f;
+
+    [SerializeField]
+    private float maxBoostAmount = 10f;
 
     [SerializeField]
     private float minGreenStart = 30f;
@@ -42,10 +46,12 @@ public class TugOfWarManager : MonoBehaviour
     [SerializeField]
     private float maxGreenStart = 60f;
 
+    private float currentBaseFishDecay;
+    private float decayRate;
+    private float greenStartOffset;
     private float currentLeftRedEnd;
     private float currentRightRedEnd;
     private bool sliderActive;
-    private float greenStartOffset;
 
     public event Action OnFailure;
     public event Action OnSuccess;
@@ -53,6 +59,12 @@ public class TugOfWarManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        currentBaseFishDecay = baseFishDecay;
+
+        if (SceneManager.GetActiveScene().name == "TimedMode")
+        {
+            currentBaseFishDecay = baseFishDecay * timedModeDecayMultiplier;
+        }
     }
 
     void Start()
@@ -77,7 +89,7 @@ public class TugOfWarManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            tugSlider.value = Mathf.Min(tugSlider.value + boostAmount, maxValue);
+            Boost();
         }
 
         float greenStart = greenStartOffset;
@@ -135,7 +147,7 @@ public class TugOfWarManager : MonoBehaviour
 
     public float CalculateDecayRate(float weight)
     {
-        return baseFishDecay + fishWeightMultiplier * Mathf.Pow(weight, 1f / 3f); // Magic numbers for cube root
+        return currentBaseFishDecay + fishWeightMultiplier * Mathf.Pow(weight, 1f / 3f); // Magic numbers for cube root
     }
 
     private void Fail()
@@ -181,5 +193,16 @@ public class TugOfWarManager : MonoBehaviour
                 greenEnd
             );
         }
+    }
+
+    private float DetermineBoostAmount()
+    {
+        return UnityEngine.Random.Range(minBoostAmount, maxBoostAmount);
+    }
+
+    private void Boost()
+    {
+        float boostAmount = DetermineBoostAmount();
+        tugSlider.value = Mathf.Min(tugSlider.value + boostAmount, maxValue);
     }
 }

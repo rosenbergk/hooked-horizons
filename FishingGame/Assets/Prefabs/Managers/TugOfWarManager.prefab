@@ -44,12 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d904c335b414fc4ba287ac853c7ea0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tugSlider: {fileID: 4121145421444200108, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
-  reelMultiplier: 1
-  tensionIncreaseRate: 0.2
-  tensionDecayRate: 0.1
-  fishPullForce: 0.05
-  successBoost: 0.15
-  penaltyDrain: 0.1
-  sweetSpotCenter: 0.5
-  sweetSpotWidth: 0.1
+  tugSlider: {fileID: 0}
+  ui: {fileID: 0}
+  maxValue: 100
+  rightRedStart: 85
+  greenWidth: 10
+  baseFishDecay: 5
+  timedModeDecayMultiplier: 1.7
+  fishWeightMultiplier: 2.3
+  encroachRate: 2
+  lossBuffer: 4
+  minBoostAmount: 2
+  maxBoostAmount: 10
+  minGreenStart: 30
+  maxGreenStart: 60

@@ -160,7 +160,12 @@ public class CastAndReel : MonoBehaviour
 
     private void TryCatchFish()
     {
-        if (!isCasting || fishCaught || Time.time < nextRollTime)
+        if (
+            !isCasting
+            || fishCaught
+            || Time.time < nextRollTime
+            || hookRb.transform.position.y > 0.5
+        )
             return;
 
         int fishType = fishCatcher.RollForCatch();
