@@ -1159,7 +1159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -112}
+  m_AnchoredPosition: {x: 415, y: -134}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765279779
@@ -1182,8 +1182,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Use mouse to aim, click to cast\nhold 'R' to reel, \nuse spacebar to keep
-    line from snapping"
+  m_text: "AIM with the mouse, CLICK to cast\nHOLD 'R' to reel only in the GREEN
+    zone\nPRESS SPACE to move the slider RIGHT\nHook timing is everything \u2014
+    STAY SHARP"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
   m_sharedMaterial: {fileID: 3465682881266468786, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
@@ -1251,7 +1252,7 @@ MonoBehaviour:
   m_margin: {x: -128.43903, y: -78.464836, z: 262.1258, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &765279780
@@ -2222,11 +2223,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1538963165460236470, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5007521
       objectReference: {fileID: 0}
     - target: {fileID: 1538963165460236470, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1538963165460236470, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
       propertyPath: m_LocalScale.y
@@ -2254,7 +2255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2461498587788650121, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4947904504488936581, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
       propertyPath: m_LocalScale.y
@@ -2266,15 +2267,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5608468020953979040, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5007521
       objectReference: {fileID: 0}
     - target: {fileID: 5608468020953979040, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5608468020953979040, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5007521
       objectReference: {fileID: 0}
     - target: {fileID: 5608468020953979040, guid: 712b088f5aee4b943bc10c8fadb46c7b, type: 3}
       propertyPath: m_LocalScale.x
