@@ -24,14 +24,12 @@ public class LevelSelectorManager : MonoBehaviour
 
     public void StartOpenWater()
     {
-        GameManager.Instance.StartGame();
-        SceneManager.LoadScene(openWaterSceneName);
+        GameManager.Instance.LoadLevel(openWaterSceneName);
     }
 
     public void StartTimedMode()
     {
-        GameManager.Instance.StartGame();
-        SceneManager.LoadScene(timedModeSceneName);
+        GameManager.Instance.LoadLevel(timedModeSceneName);
     }
 
     public void BackToMainMenu()

@@ -1,3 +1,4 @@
+// TimedModeManager.cs
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class TimedModeManager : MonoBehaviour
     [Header("Timer Settings")]
     [Tooltip("Total time in seconds for this mode")]
     [SerializeField]
-    private float timeLimit = 120f;
+    private float timeLimit = 30f; // CHANGE BACK TO 120
 
     [SerializeField]
     private float startDelay = 2f;

@@ -28,12 +28,6 @@ public class StartMenuManager : MonoBehaviour
         }
     }
 
-    public void StartNormalGame()
-    {
-        GameManager.Instance.StartGame();
-        SceneManager.LoadScene("OpenWater");
-    }
-
     private IEnumerator BlinkCursor()
     {
         bool isCursorVisible = true;

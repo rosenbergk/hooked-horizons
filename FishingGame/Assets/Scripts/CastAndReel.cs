@@ -20,9 +20,6 @@ public class CastAndReel : MonoBehaviour
     private float reelSpeed = 5f;
 
     [SerializeField]
-    private float rollInterval = 5f;
-
-    [SerializeField]
     private float hookRestDistance;
 
     private Camera mainCam;
@@ -50,12 +47,6 @@ public class CastAndReel : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            SetToDebug();
-            Debug.Log("Set to debug");
-        }
-
         HandleChargeInput();
         ProcessCharging();
         HandleCastRelease();
@@ -115,7 +106,7 @@ public class CastAndReel : MonoBehaviour
     {
         isCasting = true;
         hookRb.isKinematic = false;
-        nextRollTime = Time.time + rollInterval;
+        nextRollTime = Time.time + GameManager.Instance.GetRollInterval();
         Vector3 forward = mainCam.transform.forward;
         forward.y = 0f;
         forward.Normalize();
@@ -173,7 +164,7 @@ public class CastAndReel : MonoBehaviour
             return;
 
         int fishType = fishCatcher.RollForCatch();
-        nextRollTime = Time.time + rollInterval;
+        nextRollTime = Time.time + GameManager.Instance.GetRollInterval();
 
         if (fishType == 0)
         {
@@ -228,7 +219,6 @@ public class CastAndReel : MonoBehaviour
         }
         FindAnyObjectByType<Tutorial>()?.OnFirstFishCaught();
 
-
         ResetHookState();
     }
 
@@ -243,11 +233,5 @@ public class CastAndReel : MonoBehaviour
         isCasting = false;
         fishCaught = false;
         nextRollTime = 0f;
-    }
-
-    // ONLY FOR DEBUGGING
-    private void SetToDebug()
-    {
-        rollInterval = 0.3f;
     }
 }
