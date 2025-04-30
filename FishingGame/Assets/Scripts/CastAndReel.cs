@@ -226,6 +226,8 @@ public class CastAndReel : MonoBehaviour
                 FishCatchNotifier.Instance.ShowCatchNotification(weight, fishComponent.FishName);
             }
         }
+        FindAnyObjectByType<Tutorial>()?.OnFirstFishCaught();
+
 
         ResetHookState();
     }
