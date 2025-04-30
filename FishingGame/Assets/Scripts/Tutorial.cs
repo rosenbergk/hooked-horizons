@@ -5,13 +5,14 @@ public class Tutorial : MonoBehaviour
     [SerializeField]
     private GameObject tutorialUI;
 
-    private bool tutorialActive = true;    
+    private bool tutorialActive = true;
+
     void Start()
     {
-        if (tutorialUI != null){
+        if (tutorialUI != null)
+        {
             tutorialUI.SetActive(true);
         }
-        
     }
 
     public void OnFirstFishCaught()
