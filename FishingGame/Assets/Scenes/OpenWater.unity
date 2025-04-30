@@ -1142,7 +1142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &765279778
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1160,7 +1160,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 400, y: -112}
-  m_SizeDelta: {x: 515.76, y: 49.449997}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765279779
 MonoBehaviour:
@@ -1185,8 +1185,8 @@ MonoBehaviour:
   m_text: "Use mouse to aim, click to cast\nhold 'R' to reel, \nuse spacebar to keep
     line from snapping"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4ae69ef90ebe64c86aa37ea5f69ac744, type: 2}
-  m_sharedMaterial: {fileID: -2298843776633955117, guid: 4ae69ef90ebe64c86aa37ea5f69ac744, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
+  m_sharedMaterial: {fileID: 3465682881266468786, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1248,10 +1248,10 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -134.88345, y: -81.65988, z: 262.1258, w: 0}
+  m_margin: {x: -128.43903, y: -78.464836, z: 262.1258, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &765279780
@@ -2967,7 +2967,7 @@ PrefabInstance:
     - target: {fileID: 825961274677224413, guid: 8e2e793352e60ad4195b281b61615589, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 4ae69ef90ebe64c86aa37ea5f69ac744, type: 2}
+      objectReference: {fileID: 11400000, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
     - target: {fileID: 825961274677224413, guid: 8e2e793352e60ad4195b281b61615589, type: 3}
       propertyPath: m_fontColor.b
       value: 0.19607843
@@ -2987,7 +2987,7 @@ PrefabInstance:
     - target: {fileID: 825961274677224413, guid: 8e2e793352e60ad4195b281b61615589, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -2298843776633955117, guid: 4ae69ef90ebe64c86aa37ea5f69ac744, type: 2}
+      objectReference: {fileID: 3465682881266468786, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
     - target: {fileID: 825961274677224413, guid: 8e2e793352e60ad4195b281b61615589, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4281519859
@@ -3136,7 +3136,7 @@ PrefabInstance:
     - target: {fileID: 6579945127010145702, guid: 6bcd46f575eec71439e93c48790890c0, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 4ae69ef90ebe64c86aa37ea5f69ac744, type: 2}
+      objectReference: {fileID: 11400000, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
     - target: {fileID: 6579945127010145702, guid: 6bcd46f575eec71439e93c48790890c0, type: 3}
       propertyPath: m_fontColor.b
       value: 0.19607843
@@ -3156,7 +3156,7 @@ PrefabInstance:
     - target: {fileID: 6579945127010145702, guid: 6bcd46f575eec71439e93c48790890c0, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -2298843776633955117, guid: 4ae69ef90ebe64c86aa37ea5f69ac744, type: 2}
+      objectReference: {fileID: 3465682881266468786, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
     - target: {fileID: 6579945127010145702, guid: 6bcd46f575eec71439e93c48790890c0, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0

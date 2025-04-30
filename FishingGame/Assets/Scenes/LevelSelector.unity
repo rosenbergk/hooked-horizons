@@ -343,8 +343,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press '2' for Open Water Fishing
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4ae69ef90ebe64c86aa37ea5f69ac744, type: 2}
-  m_sharedMaterial: {fileID: -2298843776633955117, guid: 4ae69ef90ebe64c86aa37ea5f69ac744, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
+  m_sharedMaterial: {fileID: 3465682881266468786, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -537,8 +537,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Level Select
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b9e09d72f334b49a5ad23026081d6b2b, type: 2}
-  m_sharedMaterial: {fileID: 2551521972588576195, guid: b9e09d72f334b49a5ad23026081d6b2b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f26946bb3fa9c473686605d8aa406785, type: 2}
+  m_sharedMaterial: {fileID: 7313297682166428382, guid: f26946bb3fa9c473686605d8aa406785, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -781,8 +781,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press '1' for Timed Fishing
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4ae69ef90ebe64c86aa37ea5f69ac744, type: 2}
-  m_sharedMaterial: {fileID: -2298843776633955117, guid: 4ae69ef90ebe64c86aa37ea5f69ac744, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
+  m_sharedMaterial: {fileID: 3465682881266468786, guid: 0d740903a026b45678fd98f383719d5c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
