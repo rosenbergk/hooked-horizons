@@ -25,6 +25,14 @@ public class ReelSound : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0f || GameOverManager.IsGameOver)
+        {
+            if (audioSource.isPlaying)
+                audioSource.Stop();
+            wasReeling = false;
+            return;
+        }
+
         bool isReeling = castAndReel != null && castAndReel.IsReeling();
         if (reelSoundStart(isReeling))
             audioSource.Play();

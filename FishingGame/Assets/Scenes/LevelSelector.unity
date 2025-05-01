@@ -432,6 +432,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3481189993866668820, guid: 41c00d7a9d78cdd4ab67cff351fc9739, type: 3}
+      propertyPath: timedRollInterval
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8726733831884114260, guid: 41c00d7a9d78cdd4ab67cff351fc9739, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

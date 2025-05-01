@@ -39,6 +39,9 @@ public class GameOverManager : MonoBehaviour
         endPanel.SetActive(true);
 
         finalScoreText.text = "Total weight: " + weight + " lbs.";
+
+        TugOfWarManager.Instance.DeactivateSlider();
+        TugOfWarManager.Instance.ui.SetActive(false);
     }
 
     public void RestartGame()

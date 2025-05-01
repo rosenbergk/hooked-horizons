@@ -29,9 +29,6 @@ public class TugOfWarManager : MonoBehaviour
     private float fishWeightMultiplier = 2.3f;
 
     [SerializeField]
-    private float encroachRate = 1f;
-
-    [SerializeField]
     private float lossBuffer = 4f;
 
     [SerializeField]
@@ -52,6 +49,7 @@ public class TugOfWarManager : MonoBehaviour
     private float currentLeftRedEnd;
     private float currentRightRedEnd;
     private bool sliderActive;
+    private float encroachRate = 3f;
 
     public event Action OnFailure;
     public event Action OnSuccess;

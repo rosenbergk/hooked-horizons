@@ -8,6 +8,13 @@ public class PauseManager : MonoBehaviour
 
     private bool isPaused = false;
 
+    private CastAndReel castAndReel;
+
+    void Start()
+    {
+        castAndReel = FindAnyObjectByType<CastAndReel>();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -34,6 +41,8 @@ public class PauseManager : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+
+        castAndReel.enabled = false;
     }
 
     private void ResumeGame()
@@ -43,6 +52,8 @@ public class PauseManager : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+
+        castAndReel.enabled = true;
     }
 
     public void GoToMainMenu()
