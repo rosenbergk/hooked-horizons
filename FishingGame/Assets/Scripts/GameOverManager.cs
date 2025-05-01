@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameOverManager : MonoBehaviour
 {
     public static GameOverManager Instance { get; private set; }
+    public static bool IsGameOver { get; private set; } = false;
 
     [SerializeField]
     private GameObject endPanel;
@@ -18,6 +19,7 @@ public class GameOverManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            IsGameOver = false;
         }
         else
         {
@@ -28,6 +30,8 @@ public class GameOverManager : MonoBehaviour
 
     public void ShowGameOver(float weight)
     {
+        IsGameOver = true;
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 0f;
@@ -39,6 +43,7 @@ public class GameOverManager : MonoBehaviour
 
     public void RestartGame()
     {
+        IsGameOver = false;
         Time.timeScale = 1f;
 
         Cursor.lockState = CursorLockMode.Locked;
