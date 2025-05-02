@@ -19,6 +19,8 @@ public class TopFishPanelController : MonoBehaviour
     /// </summary>
     public void TogglePanel()
     {
+        Debug.Log("[Stats] TogglePanel called!  Panel currently active = " + panel.activeSelf);
+
         bool nowOn = !panel.activeSelf;
         panel.SetActive(nowOn);
         if (nowOn)
