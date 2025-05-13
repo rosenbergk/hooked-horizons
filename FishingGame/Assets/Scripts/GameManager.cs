@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float freeplayRollInterval = 4f;
 
-    private bool onDebug = false;
     private float rollInterval;
 
     private void Awake()
@@ -37,34 +36,13 @@ public class GameManager : MonoBehaviour
     {
         FishWeightManager.Instance?.ResetTotalFishPounds();
 
-        if (onDebug)
-        {
-            rollInterval = 0.3f;
-        }
-        else if (scene.name == "TimedMode")
+        if (scene.name == "TimedMode")
         {
             rollInterval = timedRollInterval;
         }
         else
         {
             rollInterval = freeplayRollInterval;
-        }
-
-        Debug.Log($"[GameManager] Loaded {scene.name}, rollInterval = {rollInterval:F2}s");
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            onDebug = !onDebug;
-            Debug.Log(
-                onDebug ? "DEBUG MODE: fast roll enabled" : "DEBUG MODE: normal roll restored"
-            );
-            if (onDebug)
-                SetToDebug();
-            else
-                RemoveDebug();
         }
     }
 
@@ -74,15 +52,4 @@ public class GameManager : MonoBehaviour
     }
 
     public float GetRollInterval() => rollInterval;
-
-    public void SetToDebug()
-    {
-        rollInterval = 0.3f;
-    }
-
-    private void RemoveDebug()
-    {
-        var scene = SceneManager.GetActiveScene();
-        rollInterval = (scene.name == "TimedMode") ? timedRollInterval : freeplayRollInterval;
-    }
 }

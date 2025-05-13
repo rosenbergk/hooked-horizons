@@ -1,3 +1,4 @@
+// CastAndReel.cs
 using UnityEngine;
 
 public class CastAndReel : MonoBehaviour
@@ -21,6 +22,9 @@ public class CastAndReel : MonoBehaviour
 
     [SerializeField]
     private float hookRestDistance;
+
+    [SerializeField]
+    private GameObject fishLostText;
 
     private Camera mainCam;
     private FishCatcher fishCatcher;
@@ -113,7 +117,6 @@ public class CastAndReel : MonoBehaviour
         Vector3 castDirection = (forward + Vector3.up * 0.5f).normalized;
         hookRb.linearVelocity = Vector3.zero;
         hookRb.AddForce(castDirection * currentCastForce, ForceMode.VelocityChange);
-        Debug.Log("Hook cast with force: " + currentCastForce);
     }
 
     private void UpdateReelingInput()
@@ -171,11 +174,7 @@ public class CastAndReel : MonoBehaviour
         int fishType = fishCatcher.RollForCatch();
         nextRollTime = Time.time + GameManager.Instance.GetRollInterval();
 
-        if (fishType == 0)
-        {
-            Debug.Log("RollForCatch: No fish.");
-        }
-        else
+        if (fishType != 0)
         {
             float weight = FishWeightManager.Instance.DetermineFishWeight(fishType);
             string fishName = FishNaming.GetFishName(fishType);
@@ -185,7 +184,6 @@ public class CastAndReel : MonoBehaviour
 
     private void HandleFishHooked(int fishType, float fishWeight, string fishName)
     {
-        Debug.Log($"Fish hooked (type {fishType}): weight={fishWeight:F2}, name={fishName}");
         fishCaught = true;
 
         currentFish = Instantiate(
@@ -231,8 +229,19 @@ public class CastAndReel : MonoBehaviour
 
     private void HandleFishLost()
     {
+        if (fishLostText != null)
+        {
+            fishLostText.SetActive(true);
+            Invoke(nameof(HideFishLostText), 3f);
+        }
         ReleaseCurrentFish();
         ResetHookState();
+    }
+
+    private void HideFishLostText()
+    {
+        if (fishLostText != null)
+            fishLostText.SetActive(false);
     }
 
     private void ResetHookState()

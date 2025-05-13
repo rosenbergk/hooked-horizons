@@ -1,3 +1,4 @@
+// RodAiming.cs
 using UnityEngine;
 
 public class RodAiming : MonoBehaviour
@@ -12,10 +13,8 @@ public class RodAiming : MonoBehaviour
         float horizontal = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
         float vertical = -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
 
-        // Horizontal rotation
         transform.Rotate(0f, horizontal, 0f);
 
-        // Vertical rotation
         verticalRotation = Mathf.Clamp(verticalRotation + vertical, -verticalLimit, verticalLimit);
         Vector3 currentRotation = transform.localEulerAngles;
         currentRotation.x = verticalRotation;

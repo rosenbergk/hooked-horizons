@@ -38,10 +38,4 @@ public class FishCatcher : MonoBehaviour
 
         return 0;
     }
-
-    public void SetToDebug()
-    {
-        noCatchChance = 0;
-        fish1CatchChance = 1;
-    }
 }

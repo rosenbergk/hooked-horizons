@@ -37,7 +37,6 @@ public class FishWeightManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No defined weight range for fish type: " + fishType);
             return 0f;
         }
     }

@@ -1,5 +1,4 @@
 // HookSplash.cs
-using System.Collections;
 using UnityEngine;
 
 public class HookSplash : MonoBehaviour
@@ -22,7 +21,7 @@ public class HookSplash : MonoBehaviour
     private float exitThreshold = -0.1f;
 
     [SerializeField]
-    private GameObject splashEffectPrefab;  
+    private GameObject splashEffectPrefab;
 
     private bool wasBelowWater;
     private bool wasBelowExitThreshold;
@@ -40,14 +39,14 @@ public class HookSplash : MonoBehaviour
         bool isBelowWater = transform.position.y < waterLevel;
 
         if (!wasBelowWater && isBelowWater && castAndReel != null && castAndReel.IsCasting())
-            {
-                audioSource.PlayOneShot(splashClip, enterVolume);
+        {
+            audioSource.PlayOneShot(splashClip, enterVolume);
 
-                if (splashEffectPrefab != null)
-                {
-                    Instantiate(splashEffectPrefab, transform.position, Quaternion.identity);
-                }
+            if (splashEffectPrefab != null)
+            {
+                Instantiate(splashEffectPrefab, transform.position, Quaternion.identity);
             }
+        }
 
         bool isBelowExit = transform.position.y < exitThreshold;
 

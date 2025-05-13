@@ -1,3 +1,4 @@
+// FishingLine.cs
 using UnityEngine;
 
 public class FishingLine : MonoBehaviour
@@ -28,16 +29,13 @@ public class FishingLine : MonoBehaviour
         bool isCasting = castAndReel != null && castAndReel.IsCasting();
         bool isReeling = castAndReel != null && castAndReel.IsReeling();
 
-        // Only apply sag when NOT casting AND the hook is far enough
         if (!isCasting && distance > 1f)
         {
-            // Base sag factor from distance
             sagFactor = Mathf.InverseLerp(2f, 10f, distance);
 
-            // While reeling, exaggerate sag
             if (isReeling)
             {
-                sagFactor = Mathf.Lerp(sagFactor, 1f, 0.6f); // Pull toward max sag
+                sagFactor = Mathf.Lerp(sagFactor, 1f, 0.6f);
             }
         }
 

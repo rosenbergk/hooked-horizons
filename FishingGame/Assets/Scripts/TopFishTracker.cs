@@ -32,19 +32,12 @@ public class TopFishTracker : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    /// <summary>
-    /// Call this whenever a fish is successfully reeled in.
-    /// </summary>
     public void RecordFish(string fishName, float weight)
     {
         topFish.Add(new FishRecord(fishName, weight));
-        // sort descending, keep only top 10
         topFish = topFish.OrderByDescending(f => f.Weight).Take(10).ToList();
     }
 
-    /// <summary>
-    /// Returns the current top list (may be <10 entries).
-    /// </summary>
     public List<(string name, float weight)> GetTopFish()
     {
         return topFish.Select(f => (f.Name, f.Weight)).ToList();

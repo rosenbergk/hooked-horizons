@@ -1,3 +1,4 @@
+// TugOfWarManager.cs
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -67,9 +68,7 @@ public class TugOfWarManager : MonoBehaviour
 
     void Start()
     {
-        if (tugSlider == null)
-            Debug.LogError("TugOfWarManager: assign a Slider!");
-        else
+        if (tugSlider != null)
         {
             tugSlider.minValue = 0f;
             tugSlider.maxValue = maxValue;
@@ -103,7 +102,6 @@ public class TugOfWarManager : MonoBehaviour
         decayRate = fishDecay;
         greenStartOffset = UnityEngine.Random.Range(minGreenStart, maxGreenStart);
 
-        Debug.Log("Decay rate is " + decayRate);
         sliderActive = true;
         tugSlider.gameObject.SetActive(true);
 
@@ -135,7 +133,6 @@ public class TugOfWarManager : MonoBehaviour
         DeactivateSlider();
         DeactivateUI();
         OnSuccess?.Invoke();
-        Debug.Log("TugOfWar: hook fully reeled — success!");
     }
 
     public bool IsSliderActive()
@@ -153,7 +150,6 @@ public class TugOfWarManager : MonoBehaviour
         DeactivateSlider();
         DeactivateUI();
         OnFailure?.Invoke();
-        Debug.Log("TugOfWar: you drifted into the red zone — failure!");
     }
 
     private void ActivateUI()

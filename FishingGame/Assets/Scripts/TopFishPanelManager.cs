@@ -5,22 +5,16 @@ using UnityEngine;
 
 public class TopFishPanelController : MonoBehaviour
 {
-    [Header("Assign in Inspector")]
-    public GameObject panel; // your TopFishPanel
-    public TextMeshProUGUI[] entries; // size = 10
+    public GameObject panel;
+    public TextMeshProUGUI[] entries;
 
     void Awake()
     {
         panel.SetActive(false);
     }
 
-    /// <summary>
-    /// Call from your menu button’s OnClick()
-    /// </summary>
     public void TogglePanel()
     {
-        Debug.Log("[Stats] TogglePanel called!  Panel currently active = " + panel.activeSelf);
-
         bool nowOn = !panel.activeSelf;
         panel.SetActive(nowOn);
         if (nowOn)

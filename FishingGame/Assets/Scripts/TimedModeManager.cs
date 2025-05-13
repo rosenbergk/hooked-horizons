@@ -2,14 +2,13 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TimedModeManager : MonoBehaviour
 {
     [Header("Timer Settings")]
     [Tooltip("Total time in seconds for this mode")]
     [SerializeField]
-    private float timeLimit = 30f; // CHANGE BACK TO 120
+    private float timeLimit = 120f;
 
     [SerializeField]
     private float startDelay = 2f;
@@ -63,7 +62,6 @@ public class TimedModeManager : MonoBehaviour
     {
         isRunning = false;
 
-        // Disable player input
         var castAndReel = FindAnyObjectByType<CastAndReel>();
         if (castAndReel)
             castAndReel.enabled = false;
@@ -71,16 +69,11 @@ public class TimedModeManager : MonoBehaviour
         if (fishCatcher)
             fishCatcher.enabled = false;
 
-        // Use GameOverManager to handle UI and restart/menu
         if (GameOverManager.Instance != null)
         {
             float finalScore =
                 Mathf.Round(FishWeightManager.Instance.TotalFishPounds * 100f) / 100f;
             GameOverManager.Instance.ShowGameOver(finalScore);
-        }
-        else
-        {
-            Debug.LogWarning("GameOverManager instance not found in scene.");
         }
     }
 }
